@@ -20,8 +20,31 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1303456340428487</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.514071825815-4a1ftrld1ef6gtigrfcora3gvt7il9l9</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>1303456340428487</string>
+	<key>FacebookClientToken</key>
+	<string>a6713e3f2aa10adc6957a1f5922a2473</string>
+	<key>FacebookDisplayName</key>
+	<string>Mind Cast</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -63,20 +86,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb1303456340428487</string>
-    </array>
-    </dict>
-  </array>
-  <key>FacebookAppID</key>
-  <string>1303456340428487</string>
-  <key>FacebookClientToken</key>
-  <string>a6713e3f2aa10adc6957a1f5922a2473</string>
-  <key>FacebookDisplayName</key>
-  <string>Mind Cast</string>
 </dict>
 </plist>

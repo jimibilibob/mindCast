@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
 #import <FBSDKCoreKit/FBSDKCoreKit-swift.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -63,6 +64,12 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+
+// AppDelegate.m
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options] || [RNGoogleSignin application:application openURL:url options:options];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

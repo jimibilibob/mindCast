@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "514071825815-fbcqb1qpdv1jvt14otp9tojuak0cv8e5.apps.googleusercontent.com",
+          "client_id": "514071825815-065d72f1bj50a0nn167c4q0mlfefhhfb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ioan.mindcastapp",
             "certificate_hash": "88e646e428f9a2ff6cf66f694d0b904216d1262b"
+          }
+        },
+        {
+          "client_id": "514071825815-sc3m3acpbchjhqoq8bg2blru3u9gb8gq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ioan.mindcastapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
@@ -37,6 +45,13 @@
             {
               "client_id": "514071825815-i2l8tuhh4ijpl8fc3uprfmvnlb94bvfi.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "514071825815-4a1ftrld1ef6gtigrfcora3gvt7il9l9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ioan.mindcastapp"
+              }
             }
           ]
         }
