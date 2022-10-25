@@ -34,7 +34,7 @@ const Discover = () => {
             data={Array.from({ length: 20 })}
             renderItem={(item) => <CardHottest/>}/>
         <PlayerFragment/>
-        <Video source={{uri: 'https://stream-33.zeno.fm/avr8uenbm1duv?zs=rWoYZThiTGK9-SbkK6nUzA'}}   // Can be a URL or a local file.
+        <Video source={{uri: 'https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/podcasts/5ce742adf8f20c0017107209/listen'}}   // Can be a URL or a local file.
             ref={(ref) => {
                 player = ref
             }}                                      // Store reference

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "514071825815",
+    "project_id": "react-native-3b1db",
+    "storage_bucket": "react-native-3b1db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514071825815:android:08548924f9059cca1ec8d2",
+        "android_client_info": {
+          "package_name": "com.ioan.mindcastapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514071825815-fbcqb1qpdv1jvt14otp9tojuak0cv8e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ioan.mindcastapp",
+            "certificate_hash": "88e646e428f9a2ff6cf66f694d0b904216d1262b"
+          }
+        },
+        {
+          "client_id": "514071825815-i2l8tuhh4ijpl8fc3uprfmvnlb94bvfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmwaXxS32RN2s9x2EkYRAW4d88APK8xm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514071825815-i2l8tuhh4ijpl8fc3uprfmvnlb94bvfi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
