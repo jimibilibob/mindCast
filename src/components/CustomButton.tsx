@@ -8,6 +8,7 @@ type CustomButtonProps = {
     color: string;
     iconName?: string;
     iconColor?: string;
+    onPress?: () => void
 } & ButtonProps
 
 const CustomButton = ({
@@ -16,7 +17,8 @@ const CustomButton = ({
     iconName,
     iconColor = '#fff',
     size = "lg",
-    style
+    style,
+    onPress = () => {}
 }: CustomButtonProps) => {
   return (
     <Button
@@ -24,6 +26,7 @@ const CustomButton = ({
         iconPosition='right'
         color={color}
         size={size}
+        onPress={onPress}
         icon={iconName ? {
             name: iconName,
             type: 'font-awesome',

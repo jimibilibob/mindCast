@@ -20,10 +20,10 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Signin/> */}
+      <Signin/>
       {/* <Signup/> */}
       {/* <ChooseCategory/> */}
-      <Discover/>
+      {/* <Discover/> */}
       {/* <PodcastDetail/> */}
       {/* <PlayerDetail/> */}
     </SafeAreaView>

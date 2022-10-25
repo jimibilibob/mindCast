@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">mindCastApp</string>
+    <string name="app_name">Mind Cast</string>
+
+    <string name="facebook_app_id">1303456340428487</string>
+    <string name="fb_login_protocol_scheme">fb1303456340428487</string>
+    <string name="facebook_client_token">a6713e3f2aa10adc6957a1f5922a2473</string>
+
 </resources>
