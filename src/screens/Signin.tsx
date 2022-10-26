@@ -11,8 +11,12 @@ import CustomBackgroundImage from '@components/CustomBackgroundImage';
 import { lightTheme } from '../styles/index';
 import OrText from '../components/OrText';
 import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
 
-const Signin = () => {
+type SignInProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>
+
+const Signin = ({navigation}: SignInProps) => {
 
     const { control, handleSubmit } = useForm()
 
@@ -29,6 +33,8 @@ const Signin = () => {
 
     const emailPattern = () => new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')
 
+    const goToSignUp = () => navigation.navigate('SignUp');
+
     return (
         <SafeAreaView>
         <CustomBackgroundImage
@@ -44,7 +50,7 @@ const Signin = () => {
                             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                                 <Text
                                 style={{color: '#FFF', fontSize: 18}}>
-                                A new way to boost your 
+                                A new way to boost your &nbsp;
                                 </Text>
                                 <Text
                                 style={{color: lightTheme.primaryColor, fontSize: 18}}>
@@ -70,10 +76,11 @@ const Signin = () => {
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 <Text
                                     style={{color: '#FFF', fontSize: 18}}>
-                                    Has account?
+                                    Has account? &nbsp;
                                 </Text>
                                 <Text
-                                    style={{color: lightTheme.primaryColor, fontSize: 18}}>
+                                    style={{color: lightTheme.primaryColor, fontSize: 18}}
+                                    onPress={goToSignUp}>
                                     Register now!
                                 </Text>
                                 </View>

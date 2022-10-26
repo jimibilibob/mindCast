@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, StyleSheet, useColorScheme} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 import CustomInput from '@components/CustomInput';
@@ -10,8 +10,13 @@ import { lightTheme } from '../styles/index';
 import OrText from '../components/OrText';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
 
-const Signup = () => {
+type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>
+
+const Signup = ({ navigation } : SignUpProps) => {
+
     const { control, handleSubmit, watch } = useForm()
     const password = watch('password')
 
@@ -35,6 +40,8 @@ const Signup = () => {
 
     const emailPattern = () => new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$')
 
+    const goToSignIn = () => navigation.goBack();
+
     return (
         <SafeAreaView>
         <CustomBackgroundImage
@@ -50,7 +57,7 @@ const Signup = () => {
                             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                                 <Text
                                 style={{color: '#FFF', fontSize: 18}}>
-                                A new way to boost your 
+                                A new way to boost your &nbsp;
                                 </Text>
                                 <Text
                                 style={{color: lightTheme.primaryColor, fontSize: 18}}>
@@ -87,10 +94,11 @@ const Signup = () => {
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 <Text
                                     style={{color: '#FFF', fontSize: 18}}>
-                                    Has account?
+                                    Has account?  &nbsp;
                                 </Text>
                                 <Text
-                                    style={{color: lightTheme.primaryColor, fontSize: 18}}>
+                                    style={{color: lightTheme.primaryColor, fontSize: 18}}
+                                    onPress={goToSignIn}>
                                     Login!
                                 </Text>
                                 </View>

@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, SafeAreaView } from 'react-native'
 import { Text } from '@rneui/base'
 import React from 'react'
 import { darkTheme } from '../../styles/index';
@@ -12,7 +12,8 @@ import Video from 'react-native-video';
 const Discover = () => {
     let player
   return (
-    <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
         <Text
             h3
             style={styles.title}>
@@ -45,6 +46,7 @@ const Discover = () => {
             playInBackground // To play in background
             style={styles.backgroundVideo} />
     </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -53,7 +55,7 @@ export default Discover
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: darkTheme.navbarColor
+        backgroundColor: darkTheme.navbarColor,
     },
     title: {
         color: '#FFF',
@@ -61,7 +63,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     backgroundVideo: {
-        position: 'absolute',
         top: 0,
         left: 0,
         bottom: 0,

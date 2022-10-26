@@ -1,32 +1,28 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Signin from './src/screens/Signin';
-import ChooseCategory from './src/screens/ChooseCategory';
-import CardPodcast from 'screens/discover/CardPodcast';
-import Subtitle from 'components/Subtitle';
-import Discover from './src/screens/discover/Discover';
-import Signup from './src/screens/Signup';
-import PodcastDetail from './src/screens/podcastDetail.tsx/PodcastDetail';
-import PlayerDetail from 'screens/playerDetail/PlayerDetail';
+import AppContext from 'shared/AppContext';
+import AppNavigation from 'navigation/AppNavigation';
+import { useApp } from 'hooks';
+import { darkTheme } from 'styles';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const app = useApp();
+
+  const SharedLoading = () => {
+    if (app.isBusy) {
+      return <ActivityIndicator size={'large'} color={darkTheme.primaryColor} />;
+    }
+
+    return null;
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <Signin/> */}
-      <Signup/>
-      {/* <ChooseCategory/> */}
-      {/* <Discover/> */}
-      {/* <PodcastDetail/> */}
-      {/* <PlayerDetail/> */}
-    </SafeAreaView>
+    <AppContext.Provider value={app}>
+        <AppNavigation />
+        <SharedLoading />
+    </AppContext.Provider>
   );
 };
 

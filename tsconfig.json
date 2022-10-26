@@ -12,6 +12,7 @@
       "*": ["src/*"],
       "tests": ["tests/*"],
       "@components/*": ["src/components/*"],
+      "@shared": ["./src/shared/*"],
     },
   }
 }
