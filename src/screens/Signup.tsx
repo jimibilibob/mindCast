@@ -9,6 +9,7 @@ import CustomBackgroundImage from '@components/CustomBackgroundImage';
 import { lightTheme } from '../styles/index';
 import OrText from '../components/OrText';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
+import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
 
 const Signup = () => {
     const { control, handleSubmit, watch } = useForm()
@@ -102,18 +103,7 @@ const Signup = () => {
                     
                     <View>
                         <OrText/>
-                        <CustomButton
-                            title={'Register with'}
-                            color={lightTheme.facebookColor}
-                            iconName={'facebook-official'}
-                            iconColor={'#fff'}
-                            style={styles.socialMediaButtons}/>
-                        <CustomButton
-                            title={'Register with'}
-                            color={lightTheme.googleColor}
-                            iconName={'google'}
-                            iconColor={'#fff'}
-                            style={styles.socialMediaButtons}/>
+                        <SocialMediaButtons/>
                     </View>
                 </ScrollView>
             </CustomBackgroundImage>
@@ -131,8 +121,5 @@ const styles = StyleSheet.create({
     },
     title: {
         paddingVertical: 50
-    },
-    socialMediaButtons: {
-        marginBottom: 15
     }
 });

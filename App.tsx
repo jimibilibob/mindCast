@@ -20,8 +20,8 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Signin/>
-      {/* <Signup/> */}
+      {/* <Signin/> */}
+      <Signup/>
       {/* <ChooseCategory/> */}
       {/* <Discover/> */}
       {/* <PodcastDetail/> */}
