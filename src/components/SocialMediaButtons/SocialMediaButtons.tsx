@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import CustomButton from 'components/CustomButton';
 import { lightTheme } from 'styles';
 
@@ -66,6 +66,12 @@ const SocialMediaButtons = ({navigation}: SocialMediaButtonsProps) => {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        GoogleSignin.configure({
+            webClientId: '514071825815-i2l8tuhh4ijpl8fc3uprfmvnlb94bvfi.apps.googleusercontent.com',
+          });
+    }, [])
 
     return (
         <View>

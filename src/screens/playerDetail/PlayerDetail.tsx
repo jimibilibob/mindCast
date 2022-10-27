@@ -1,6 +1,6 @@
-import { StyleSheet, View, ImageBackground } from 'react-native'
+import { StyleSheet, View, ImageBackground, Platform } from 'react-native'
 import { Text } from '@rneui/themed';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { darkTheme } from 'styles';
 import OptionsButtons from './OptionsButtons';
 import PlayerButtons from './PlayerButtons';
@@ -8,6 +8,7 @@ import PlayerControls from './PlayerControls';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
 import { HottestPodcast } from 'screens/discover/models/HomeResponse';
+import AppContext from 'shared/AppContext';
 
 type PlayerDetailProps = NativeStackScreenProps<RootStackParamList, 'PlayerDetail'>
 
@@ -17,13 +18,35 @@ const PlayerDetail = ({
       params: hottestPodCast
     }
 }: PlayerDetailProps) => {
+    const { setShowPlayerFragment, selectedPodCast, setSelectedPodCast, isPlaying, setIsPlaying } = useContext(AppContext)
     const podcast = hottestPodCast as HottestPodcast
 
-    // TODO: Hide TabBar
     useEffect(() => {
-        navigation.getParent()?.setOptions({tabBarStyle: {height: 1, display: 'flex'}});
+        setShowPlayerFragment(false)
+        return () => {
+            setShowPlayerFragment(selectedPodCast ? true : false)
+        }
+    }, [])
+
+    useEffect(() => {
+        navigation.getParent()?.setOptions({tabBarStyle: {height: 1, display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}});
         return () => navigation.getParent()?.setOptions({tabBarStyle: {display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}});
       }, [navigation]);
+
+    const onPlayPause = () => {
+        setSelectedPodCast(podcast)
+        let newValIsPlaying = !isPlaying
+        setIsPlaying(newValIsPlaying)
+    }
+
+    const onPressPrev = () => {}
+    const onNext = () => {}
+
+    const actions = {
+        onPlayPause,
+        onPressPrev,
+        onNext
+    }
 
     return (
         <View
@@ -41,7 +64,7 @@ const PlayerDetail = ({
                     <Text style={styles.podcastTilte}>{ podcast.author.name }</Text>
                     <Text h4 style={styles.podcastSubtilte}>{ podcast.title }</Text>
                     <PlayerControls/>
-                <PlayerButtons/>
+                <PlayerButtons {...actions} isPlaying={isPlaying && podcast.id == selectedPodCast?.id } />
                 </View>
                 <OptionsButtons/>
             </ImageBackground> 
@@ -53,7 +76,8 @@ export default PlayerDetail
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        width: '100%',
+        height: Platform.OS == 'android' ? '100%' : '105%' // TODO: Check it later, manage it with hooks
     },
     content: {
         flex: 1,

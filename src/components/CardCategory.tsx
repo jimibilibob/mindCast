@@ -12,9 +12,8 @@ type CardCategoryProps = {
 const CardCategory = ({ category, onPressItem }: CardCategoryProps) => {
     return (
         <TouchableOpacity
-            onPress={ () => {}}
-            style={{marginVertical: 5}}
-            onPressIn={onPressItem}>
+            onPress={onPressItem}
+            style={{marginVertical: 5}}>
             <ImageBackground 
                 source={{uri: category.imageURL}}
                 resizeMode="cover"

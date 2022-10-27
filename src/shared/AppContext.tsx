@@ -1,17 +1,24 @@
 import { createContext } from 'react';
 import { Category } from 'screens/ChooseCategory';
+import { HottestPodcast } from 'screens/discover/models/HomeResponse';
 
 type AppContextType = {
   isSignedIn: boolean,
   isLoading: boolean,
+  isBusy: boolean,
+  setIsBusy: (_: boolean) => void,
   hasSelectedCategories: boolean,
   categories: Array<Category>,
+  selectedPodCast?: HottestPodcast,
+  showPlayerFragment: boolean,
+  isPlaying: boolean,
   setIsSignedIn: (_: boolean) => void,
   setIsLoading: (_: boolean) => void,
   setCategories: (_: Array<Category>) => void,
   setHasSelectedCategories: (_: boolean) => void,
-  isBusy: boolean,
-  setIsBusy: (_: boolean) => void,
+  setSelectedPodCast: (_: HottestPodcast) => void
+  setShowPlayerFragment: (_: boolean) => void,
+  setIsPlaying: (_: boolean) => void,
 }
 
 const defaultValue: AppContextType = {
@@ -19,12 +26,18 @@ const defaultValue: AppContextType = {
   isLoading: false,
   hasSelectedCategories: false,
   categories: [],
+  selectedPodCast: undefined,
+  showPlayerFragment: false,
+  isPlaying: false,
+  isBusy: false,
+  setIsBusy: (_: boolean) => {},
   setIsSignedIn: (_: boolean) => {},
   setIsLoading: (_: boolean) => {},
   setCategories: (_: Array<Category>) => {},
   setHasSelectedCategories: (_: boolean) => {},
-  isBusy: false,
-  setIsBusy: (_: boolean) => {},
+  setSelectedPodCast: (_: HottestPodcast) => {},
+  setShowPlayerFragment: (_: boolean) => false,
+  setIsPlaying: (_: boolean) => false
 }
 
 export const AppContext = createContext(defaultValue);

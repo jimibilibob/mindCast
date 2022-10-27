@@ -8,12 +8,13 @@ import AppContext from 'shared/AppContext';
 import { darkTheme } from 'styles';
 import Signup from 'screens/Signup';
 import Signin from 'screens/Signin';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChooseCategory from 'screens/ChooseCategory';
 import { Icon } from '@rneui/base';
 import PodcastDetail from 'screens/podcastDetail.tsx/PodcastDetail';
 import PlayerDetail from 'screens/playerDetail/PlayerDetail';
+import PlayerFragment from 'components/PlayerFragment/PlayerFragment';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -85,7 +86,7 @@ const AnonymousScreens = () => {
 
 const AppNavigation = () => {
   const { isSignedIn, isLoading, hasSelectedCategories } = useContext(AppContext);
-  console.log('hasSelectedCategories', hasSelectedCategories)
+  // console.log('hasSelectedCategories', hasSelectedCategories)
 
   if (isLoading) {
     return <ActivityIndicator size={'large'} color={darkTheme.primaryColor} />;
@@ -94,6 +95,7 @@ const AppNavigation = () => {
   if (isSignedIn && hasSelectedCategories) {
     return (
       <NavigationContainer>
+        <PlayerFragment/>
         <Tab.Navigator screenOptions={ ({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName = '';

@@ -11,7 +11,7 @@ import { StorageConstants } from 'shared/StorageConstants';
 const ChooseCategory = () => {
 
   const { categories, setCategories, setHasSelectedCategories } = useContext(AppContext)
-  console.log('categories', categories)
+  // console.log('categories', categories)
 
   const saveCategories = async () => {
     await storeObject(StorageConstants.categories, categories)

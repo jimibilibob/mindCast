@@ -20,7 +20,6 @@ export const storeObject = async (key: string, value: any) => {
 export const getPrimary = async (key: string): Promise<any> => {
   try {
     const value = await AsyncStorage.getItem(key)
-    console.log('======> getPrimary', value)
     return value
   } catch(e) {
     console.log(e)

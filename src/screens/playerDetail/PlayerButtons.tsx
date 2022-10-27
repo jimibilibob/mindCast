@@ -1,34 +1,52 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Icon } from '@rneui/themed';
 import React from 'react'
 import { darkTheme } from '../../styles/index';
+import { useContext } from 'react';
+import AppContext from 'shared/AppContext';
 
 type PlayerButtonsProps = {
+    onPlayPause: () => void,
+    onPressPrev: () => void,
+    onNext: () => void,
     isPlaying?: boolean
 }
 
-const PlayerButtons = ({ isPlaying = true }: PlayerButtonsProps) => {
-  return (
-    <View
-        style={styles.container}>
-        <Icon
-            name= 'skip-previous'
-            type= 'material-community'
-            size= {30}
-            color= {'#FFF'}/>
-        <Icon
-            name= {isPlaying ? 'play' : 'pause'}
-            type= 'material-community'
-            size= {30}
-            color= {'#FFF'}
-            containerStyle={styles.playPauseButton}/>  
-        <Icon
-            name= 'skip-next'
-            type= 'material-community'
-            size= {30}
-            color= {'#FFF'}/>   
-    </View>
-  )
+const PlayerButtons = ({
+    onPlayPause,
+    onPressPrev,
+    onNext,
+    isPlaying = false }: PlayerButtonsProps) => {
+    return (
+        <View
+            style={styles.container}>
+            <TouchableOpacity
+            onPress={onPressPrev}>
+                <Icon
+                name= 'skip-previous'
+                type= 'material-community'
+                size= {30}
+                color= {'#FFF'}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={onPlayPause}>
+                <Icon
+                    name= {isPlaying ? 'play' : 'pause'}
+                    type= 'material-community'
+                    size= {30}
+                    color= {'#FFF'}
+                    containerStyle={styles.playPauseButton}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={onNext}>
+                <Icon
+                name= 'skip-next'
+                type= 'material-community'
+                size= {30}
+                color= {'#FFF'}/>  
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 export default PlayerButtons
@@ -42,7 +60,7 @@ const styles = StyleSheet.create({
     },
     playPauseButton: {
         borderWidth: 10,
-        borderColor: 'rgba(255, 0, 0, 0.4)',
+        borderColor: 'rgba(239, 1, 11, 0.2)',
         padding: 10,
         backgroundColor: darkTheme.primaryColor,
         borderRadius: 40

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import AppContext from 'shared/AppContext';
 import AppNavigation from 'navigation/AppNavigation';
@@ -10,18 +10,9 @@ const App = () => {
 
   const app = useApp();
 
-  const SharedLoading = () => {
-    if (app.isBusy) {
-      return <ActivityIndicator size={'large'} color={darkTheme.primaryColor} />;
-    }
-
-    return null;
-  }
-
   return (
     <AppContext.Provider value={app}>
         <AppNavigation />
-        <SharedLoading />
     </AppContext.Provider>
   );
 };

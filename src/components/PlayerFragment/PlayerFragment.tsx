@@ -1,21 +1,29 @@
-import { StyleSheet, View, ImageBackground } from 'react-native'
+import { StyleSheet, View, ImageBackground, Dimensions, ViewStyle, Platform } from 'react-native'
 import { Text, Slider, Icon } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { darkTheme } from 'styles';
+import AppContext from 'shared/AppContext';
 
 type PlayerFragmentProps = {
     isPlaying?: boolean
-}
+    containerStyle?: ViewStyle
+} 
 
-const PlayerFragment = ({ isPlaying = true}: PlayerFragmentProps) => {
-    const [value, setValue] = useState(60);
+const PlayerFragment = ({ isPlaying = true, containerStyle}: PlayerFragmentProps) => {
+    const { showPlayerFragment, selectedPodCast } = useContext(AppContext)
+
+    if (!showPlayerFragment) {
+        return <></>
+    }
+
+    const [value, setValue] = useState(5);
     
     return (
-        <View style={styles.mainContainer}>
+        <View style={[styles.mainContainer, containerStyle]}>
             <Slider
             value={value}
             onValueChange={setValue}
-            maximumValue={68}
+            maximumValue={100}
             minimumValue={0}
             step={1}
             minimumTrackTintColor={'red'}
@@ -61,7 +69,15 @@ const PlayerFragment = ({ isPlaying = true}: PlayerFragmentProps) => {
 export default PlayerFragment
 
 const styles = StyleSheet.create({
-    mainContainer: {},
+    mainContainer: {
+        borderBottomWidth: 1,
+        borderBottomColor: darkTheme.navbarColor,
+        position: 'absolute',
+        width: '100%',
+        bottom: Platform.OS == 'android' ? '7%' : '9%',
+        zIndex: 100,
+        elevation: 10
+    },
     container: {
         flexDirection: 'row',
         backgroundColor: darkTheme.screenBackgroundColor,

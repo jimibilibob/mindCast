@@ -10,13 +10,16 @@ export const useApp = () => {
   const [isBusy, setIsBusy] = useState(false);
   const [categories, setCategories] = useState(Array<Category>);
   const [hasSelectedCategories, setHasSelectedCategories] = useState(false);
+  const [showPlayerFragment, setShowPlayerFragment] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedPodCast, setSelectedPodCast] = useState(undefined);
 
   const loadApplication = async () => {
     try {
       const hasSelectedCategories = (await getPrimary(StorageConstants.hasSelectedCategories)) as Boolean;
       const selectedCategories = (await getObject(StorageConstants.categories)) as Array<Category>;
-      console.log('categories', selectedCategories)
-      console.log('hasSelectedCategories', hasSelectedCategories)
+      // console.log('categories', selectedCategories)
+      // console.log('hasSelectedCategories', hasSelectedCategories)
 
       if (auth().currentUser) {
         setIsSignedIn(true);
@@ -46,6 +49,12 @@ export const useApp = () => {
     hasSelectedCategories,
     setHasSelectedCategories,
     categories,
-    setCategories
+    setCategories,
+    showPlayerFragment,
+    setShowPlayerFragment,
+    selectedPodCast,
+    setSelectedPodCast,
+    isPlaying,
+    setIsPlaying
   };
 }

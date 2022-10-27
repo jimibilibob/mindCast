@@ -46,7 +46,7 @@ const CustomInput = ({
               type='feather'
               size={22}
               style={styles.icon}
-              onPress={() => console.log('hello')} />
+              />
           }/>
         }/>
   );

@@ -24,7 +24,7 @@ const Discover = ({navigation}: DiscoverProps) => {
     let player
 
     const [ homeResponse, setHomeResponse ] = useState<HomeResponse>({hottestPodcasts: [], newReleases: [], trendingAuthors: []})
-    const { setIsSignedIn, setCategories, setHasSelectedCategories } = useContext(AppContext)
+    const { setIsSignedIn, setCategories, setHasSelectedCategories, setShowPlayerFragment } = useContext(AppContext)
 
     const signOut = async () => {
         try {
@@ -37,6 +37,7 @@ const Discover = ({navigation}: DiscoverProps) => {
             setIsSignedIn(false)
             setCategories(CATEGORIES),
             setHasSelectedCategories(false)
+            setShowPlayerFragment(false)
         }
     }
 
@@ -45,7 +46,7 @@ const Discover = ({navigation}: DiscoverProps) => {
             const selectedCategories = (await getObject(StorageConstants.categories)) as Array<Category>;
             const response = await fetch('https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/home?categories=science&categories=history').then( res => res.json() )
             setHomeResponse(response as HomeResponse)
-            console.log('PodCasts', (response as HomeResponse))
+            // console.log('PodCasts', (response as HomeResponse))
         } catch (error) {
             console.log(error)
         }
@@ -92,8 +93,7 @@ const Discover = ({navigation}: DiscoverProps) => {
                 horizontal
                 data={homeResponse.hottestPodcasts}
                 renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
-            <PlayerFragment/>
-            <Video source={{uri: 'https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/podcasts/5ce742adf8f20c0017107209/listen'}}   // Can be a URL or a local file.
+            {/* <Video source={{uri: 'https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/podcasts/5ce742adf8f20c0017107209/listen'}}   // Can be a URL or a local file.
                 ref={(ref) => {
                     player = ref
                 }}                                      // Store reference
@@ -102,7 +102,7 @@ const Discover = ({navigation}: DiscoverProps) => {
                 audioOnly
                 ignoreSilentSwitch={'ignore'}
                 playInBackground // To play in background
-                style={styles.backgroundVideo} />
+                style={styles.backgroundVideo} /> */}
         </ScrollView>
         </SafeAreaView>
     )
