@@ -3,6 +3,7 @@ import { Text, Slider, Icon } from '@rneui/themed';
 import React, { useContext, useState } from 'react';
 import { darkTheme } from 'styles';
 import AppContext from 'shared/AppContext';
+import Audio from 'components/Audio.tsx/Audio';
 
 type PlayerFragmentProps = {
     containerStyle?: ViewStyle
@@ -79,6 +80,15 @@ const PlayerFragment = ({
                 </TouchableOpacity>
                 </View>
             </View>
+            <Audio
+                isPlaying={isPlaying}
+                player={{
+                    currentPodcast: selectedPodCast!,
+                    seekValue: 1,
+                    paused: isPlaying ? false : true,
+                    shouldSeekProgressSlider: true
+                }}
+                />
         </View>
         
   )

@@ -8,8 +8,6 @@ import CardPodcast from './CardPodcast';
 import CardAuthor from './CardAuthor';
 import HeaderSection from './HeaderSection';
 import CardHottest from './CardHottest';
-import PlayerFragment from 'components/PlayerFragment/PlayerFragment';
-import Video from 'react-native-video';
 import AppContext from 'shared/AppContext';
 import { CATEGORIES, Category } from 'screens/ChooseCategory';
 import { getObject, removeItem } from 'lib';
@@ -17,6 +15,7 @@ import { StorageConstants } from 'shared/StorageConstants';
 import { HomeResponse, HottestPodcast } from './models/HomeResponse';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
+import Video from 'react-native-video';
 
 type DiscoverProps = NativeStackScreenProps<RootStackParamList, 'Discover'>
 
@@ -63,47 +62,37 @@ const Discover = ({navigation}: DiscoverProps) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.container}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                <Text
-                    h3
-                    style={styles.title}>
-                    Discover
-                </Text>
-                <Icon
-                    name={'sign-out'}
-                    type='font-awesome'
-                    size={25}
-                    style={styles.signOut}
-                    color={'#FFF'}
-                    onPress={signOut}
-                    />
-            </View>
-            <HeaderSection title='New Releases'/>
-            <FlatList
-                horizontal
-                data={homeResponse.newReleases}
-                renderItem={({item}) => <CardPodcast newRelease={item} onPress={ () => onPressPodcast(item) }/>}/>
-            <HeaderSection title='Trending Authors'/>
-            <FlatList
-                horizontal
-                data={homeResponse.trendingAuthors}
-                renderItem={({item}) => <CardAuthor trendingAuthor={item}/>}/>
-            <HeaderSection title='Hottest Podcasts'/>
-            <FlatList
-                horizontal
-                data={homeResponse.hottestPodcasts}
-                renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
-            {/* <Video source={{uri: 'https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/podcasts/5ce742adf8f20c0017107209/listen'}}   // Can be a URL or a local file.
-                ref={(ref) => {
-                    player = ref
-                }}                                      // Store reference
-                // onBuffer={this.onBuffer}                // Callback when remote video is buffering
-                // onError={this.videoError}               // Callback when video cannot be loaded
-                audioOnly
-                ignoreSilentSwitch={'ignore'}
-                playInBackground // To play in background
-                style={styles.backgroundVideo} /> */}
-        </ScrollView>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <Text
+                        h3
+                        style={styles.title}>
+                        Discover
+                    </Text>
+                    <Icon
+                        name={'sign-out'}
+                        type='font-awesome'
+                        size={25}
+                        style={styles.signOut}
+                        color={'#FFF'}
+                        onPress={signOut}
+                        />
+                </View>
+                <HeaderSection title='New Releases'/>
+                <FlatList
+                    horizontal
+                    data={homeResponse.newReleases}
+                    renderItem={({item}) => <CardPodcast newRelease={item} onPress={ () => onPressPodcast(item) }/>}/>
+                <HeaderSection title='Trending Authors'/>
+                <FlatList
+                    horizontal
+                    data={homeResponse.trendingAuthors}
+                    renderItem={({item}) => <CardAuthor trendingAuthor={item}/>}/>
+                <HeaderSection title='Hottest Podcasts'/>
+                <FlatList
+                    horizontal
+                    data={homeResponse.hottestPodcasts}
+                    renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
+            </ScrollView>
         </SafeAreaView>
     )
 }
