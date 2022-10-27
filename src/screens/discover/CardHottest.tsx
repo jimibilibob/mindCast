@@ -13,9 +13,8 @@ type CardHottestProps = {
 const CardHottest = ({ hottestPodcast, onPress }: CardHottestProps) => {
   return (
     <TouchableOpacity
-      onPress={ () => {}}
-      style={{marginVertical: 5}}
-      onPressIn={onPress}>
+      onPress={ onPress }
+      style={{marginVertical: 5}}>
       <ImageBackground 
         source={{uri: hottestPodcast.imageURL}}
         resizeMode="cover"

@@ -12,9 +12,8 @@ type CardPodcastProps = {
 const CardPodcast = ({ newRelease, onPress }: CardPodcastProps) => {
   return (
     <TouchableOpacity
-      onPress={ () => {}}
-      style={{marginVertical: 5}}
-      onPressIn={onPress}>
+      onPress={onPress}
+      style={{marginVertical: 5}}>
       <ImageBackground 
               source={{uri: newRelease.imageURL}}
               resizeMode="cover"
