@@ -12,7 +12,7 @@ import PlayerFragment from 'components/PlayerFragment/PlayerFragment';
 import Video from 'react-native-video';
 import AppContext from 'shared/AppContext';
 import { CATEGORIES } from 'screens/ChooseCategory';
-import { removeEncryptedItem } from 'lib';
+import { removeItem } from 'lib';
 import { StorageConstants } from 'shared/StorageConstants';
 
 const Discover = () => {
@@ -21,8 +21,8 @@ const Discover = () => {
     const { setIsSignedIn, setCategories, setHasSelectedCategories } = useContext(AppContext)
     const signOut = async () => {
         try {
-            await removeEncryptedItem(StorageConstants.categories)
-            await removeEncryptedItem(StorageConstants.hasSelectedCategories)
+            await removeItem(StorageConstants.categories)
+            await removeItem(StorageConstants.hasSelectedCategories)
         } catch (error) {
             console.log(error)
         } finally {

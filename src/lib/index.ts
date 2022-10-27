@@ -1,28 +1,48 @@
-import EncryptedStorage from 'react-native-encrypted-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function getEncryptedItem<T>(key: string): Promise<T | null> {
-  const stringValue = await EncryptedStorage.getItem(key);
-
-  if (!stringValue) {
-    return null;
+export const storePrimary = async (key: string, value: any) => {
+  try {
+    await AsyncStorage.setItem(key, value)
+    console.log('======> getPrimaryStored', await AsyncStorage.getItem(key))
+  } catch (e) {
+    console.log(e)
   }
-
-  const value = JSON.parse(stringValue);
-  return value as T;
 }
 
-export const setEncryptedItem = async (key: string, value: any): Promise<void> => {
-  if (value === null || value === undefined) {
-    return;
-  }
-  
-  let encryptedValue = value.toString();
+export const storeObject = async (key: string, value: any) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem(key, jsonValue)
 
-  if (typeof value === 'object') {
-    encryptedValue = JSON.stringify(value);
-  }
+    console.log('======> getObjectStored', await AsyncStorage.getItem(key))
 
-  await EncryptedStorage.setItem(key, encryptedValue);
+  } catch (e) {
+    console.log(e)
+  }
 }
 
-export const removeEncryptedItem = EncryptedStorage.removeItem;
+export const getPrimary = async (key: string): Promise<any> => {
+  try {
+    const value = await AsyncStorage.getItem(key)
+    console.log('======> getPrimary', value)
+    return value
+  } catch(e) {
+    console.log(e)
+    return null
+  }
+}
+
+
+export const getObject = async (key: string): Promise<any> => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('@storage_Key')
+    console.log('+++++++++++> getObject', jsonValue)
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch(e) {
+    console.log(e)
+    return null
+  }
+}
+
+
+export const removeItem = AsyncStorage.removeItem;

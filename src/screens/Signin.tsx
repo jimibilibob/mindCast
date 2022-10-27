@@ -26,7 +26,6 @@ const Signin = ({navigation}: SignInProps) => {
     const signInWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userCredential = await auth().signInWithEmailAndPassword(data['email'], data['password'])
-
             console.log('User signed in!', userCredential);
             setIsSignedIn(true)
             navigation.navigate('ChooseCategory')

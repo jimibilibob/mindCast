@@ -12,8 +12,6 @@ import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
-import { setEncryptedItem } from 'lib';
-import { StorageConstants } from 'shared/StorageConstants';
 import { useContext } from 'react';
 import AppContext from 'shared/AppContext';
 

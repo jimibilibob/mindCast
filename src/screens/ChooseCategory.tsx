@@ -5,7 +5,7 @@ import { darkTheme } from '../styles/index';
 import CardCategory from '../components/CardCategory';
 import AppContext from 'shared/AppContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { setEncryptedItem } from 'lib';
+import { storeObject } from 'lib';
 import { StorageConstants } from 'shared/StorageConstants';
 
 const ChooseCategory = () => {
@@ -14,7 +14,8 @@ const ChooseCategory = () => {
   console.log('categories', categories)
 
   const saveCategories = async () => {
-    await setEncryptedItem(StorageConstants.categories, categories)
+    await storeObject(StorageConstants.categories, categories)
+    await storeObject(StorageConstants.hasSelectedCategories, true)
     setHasSelectedCategories(true)
   }
 

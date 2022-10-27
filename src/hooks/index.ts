@@ -1,4 +1,4 @@
-import { getEncryptedItem } from '../lib';
+import { getPrimary, getObject } from '../lib';
 import { StorageConstants } from 'shared/StorageConstants';
 import { useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
@@ -13,8 +13,8 @@ export const useApp = () => {
 
   const loadApplication = async () => {
     try {
-      const hasSelectedCategories = await getEncryptedItem(StorageConstants.hasSelectedCategories);
-      const selectedCategories = await getEncryptedItem<Array<Category>>(StorageConstants.categories);
+      const hasSelectedCategories = (await getPrimary(StorageConstants.hasSelectedCategories)) as Boolean;
+      const selectedCategories = (await getObject(StorageConstants.categories)) as Array<Category>;
       console.log('categories', selectedCategories)
       console.log('hasSelectedCategories', hasSelectedCategories)
 
