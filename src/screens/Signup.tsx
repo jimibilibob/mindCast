@@ -12,6 +12,10 @@ import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
 import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
+import { setEncryptedItem } from 'lib';
+import { StorageConstants } from 'shared/StorageConstants';
+import { useContext } from 'react';
+import AppContext from 'shared/AppContext';
 
 type SignUpProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>
 
@@ -20,12 +24,15 @@ const Signup = ({ navigation } : SignUpProps) => {
     const { control, handleSubmit, watch } = useForm()
     const password = watch('password')
 
+    const { setIsSignedIn } = useContext(AppContext)
+
     const signUpWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userCredential = await auth().createUserWithEmailAndPassword(data['email'], data['password'])
 
             console.log('User account created & signed in!', userCredential);
-
+            setIsSignedIn(true)
+            navigation.navigate('ChooseCategory')
         } catch (error: any) {
             if (error.code === 'auth/email-already-in-use') {
                 console.log('That email address is already in use!');
@@ -111,7 +118,7 @@ const Signup = ({ navigation } : SignUpProps) => {
                     
                     <View>
                         <OrText/>
-                        <SocialMediaButtons/>
+                        <SocialMediaButtons navigation={navigation}/>
                     </View>
                 </ScrollView>
             </CustomBackgroundImage>

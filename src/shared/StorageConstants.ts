@@ -1,4 +1,3 @@
 export const StorageConstants = {
-    isSignedIn: 'isSignedIn',
-    user: 'user',
+    hasChooseCategories: 'hasChooseCategories',
   };

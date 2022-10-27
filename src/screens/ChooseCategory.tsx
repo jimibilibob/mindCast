@@ -1,12 +1,25 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
-import React from 'react'
+import React, { useContext } from 'react'
 import { Icon, Text } from '@rneui/base'
 import { darkTheme } from '../styles/index';
 import CardCategory from '../components/CardCategory';
+import AppContext from 'shared/AppContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { setEncryptedItem } from 'lib';
+import { StorageConstants } from 'shared/StorageConstants';
 
 const ChooseCategory = () => {
+
+  const { setHasChooseCategories } = useContext(AppContext)
+
+  const goToHome = async () => {
+    // TODO: SAVE CATEGORIES
+    await setEncryptedItem(StorageConstants.hasChooseCategories, true)
+    setHasChooseCategories(true)
+  }
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Icon
             style={{flex: 1}}
@@ -22,7 +35,8 @@ const ChooseCategory = () => {
             name='check'
             type= 'font-awesome'
             size= {25}
-            color= {'#FFF'}/>
+            color= {'#FFF'}
+            onPress={goToHome}/>
       </View>
       <Text
         h4
@@ -32,7 +46,7 @@ const ChooseCategory = () => {
       <ScrollView style={{marginHorizontal: 12}}>
         {Array.from({ length: 20 }).map( (_, i) => <CardCategory key={ i }/>)}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
 

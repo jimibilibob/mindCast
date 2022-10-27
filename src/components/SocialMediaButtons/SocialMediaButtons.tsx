@@ -1,13 +1,21 @@
 import { StyleSheet, View } from 'react-native';
-import React from 'react'
+import React, { useContext } from 'react'
 import CustomButton from 'components/CustomButton';
 import { lightTheme } from 'styles';
 
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AppContext from 'shared/AppContext';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
 
-const SocialMediaButtons = () => {
+type SocialMediaButtonsProps = {
+    navigation: NativeStackNavigationProp<RootStackParamList, "SignIn" | "SignUp", undefined>
+}
+
+const SocialMediaButtons = ({navigation}: SocialMediaButtonsProps) => {
+    const { setIsSignedIn } = useContext(AppContext)
 
     const signInFacebook = async () => {
         try {
@@ -27,7 +35,8 @@ const SocialMediaButtons = () => {
             const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
             auth().signInWithCredential(facebookCredential);
-            //TODO: Navigate to home
+            setIsSignedIn(true)
+            navigation.navigate('ChooseCategory')
         } catch (error: any) {
             console.error(error);
         }
@@ -50,6 +59,9 @@ const SocialMediaButtons = () => {
         
             // Sign-in the user with the credential
             auth().signInWithCredential(googleCredential);
+
+            setIsSignedIn(true)
+            navigation.navigate('ChooseCategory')
         } catch (error: any) {
             console.error(error);
         }

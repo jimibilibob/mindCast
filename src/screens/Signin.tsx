@@ -13,19 +13,25 @@ import OrText from '../components/OrText';
 import SocialMediaButtons from 'components/SocialMediaButtons/SocialMediaButtons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
+import { useContext } from 'react';
+import AppContext from 'shared/AppContext';
+import { setEncryptedItem } from 'lib';
+import { StorageConstants } from 'shared/StorageConstants';
 
 type SignInProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>
 
 const Signin = ({navigation}: SignInProps) => {
 
     const { control, handleSubmit } = useForm()
+    const { setIsSignedIn } = useContext(AppContext)
 
     const signInWithEmailPassword: SubmitHandler<FieldValues> = async (data) => {
         try {
             const userCredential = await auth().signInWithEmailAndPassword(data['email'], data['password'])
 
             console.log('User signed in!', userCredential);
-            //TODO: Navigate to home
+            setIsSignedIn(true)
+            navigation.navigate('ChooseCategory')
         } catch (error: any) {
             console.error(error);
         }
@@ -93,7 +99,7 @@ const Signin = ({navigation}: SignInProps) => {
                     
                     <View>
                         <OrText/>
-                        <SocialMediaButtons/>
+                        <SocialMediaButtons navigation={navigation}/>
                     </View>
                 </ScrollView>
             </CustomBackgroundImage>
