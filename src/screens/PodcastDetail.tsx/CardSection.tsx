@@ -3,13 +3,17 @@ import {Text} from '@rneui/themed';
 import React from 'react'
 import { darkTheme } from '../../styles/index';
 
-const CardSection = () => {
+type CardSectionProps = {
+  text: string
+}
+
+const CardSection = ({text}: CardSectionProps) => {
   return (
     <View
         style={styles.container}>
         <Text
         style={styles.text}>
-        In this podcast. I'll explain you how much tools and weapons you can build using advanced techjologies and techiques using dragonglass    
+        {text} 
         </Text>        
     </View>
   )

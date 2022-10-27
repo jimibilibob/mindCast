@@ -1,36 +1,52 @@
 import { StyleSheet, View, ImageBackground } from 'react-native'
-import { Text, Slider, Icon } from '@rneui/themed';
-import React, { useState } from 'react';
+import { Text } from '@rneui/themed';
+import React, { useEffect } from 'react';
 import { darkTheme } from 'styles';
 import OptionsButtons from './OptionsButtons';
 import PlayerButtons from './PlayerButtons';
 import PlayerControls from './PlayerControls';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
+import { HottestPodcast } from 'screens/discover/models/HomeResponse';
 
-const PlayerDetail = () => {
-    
+type PlayerDetailProps = NativeStackScreenProps<RootStackParamList, 'PlayerDetail'>
 
-  return (
-    <View
-        style={styles.container}>
-        <ImageBackground 
-            source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
-            resizeMode="cover"
-            blurRadius={10}
-            style={[styles.container]}>
-            <View style={styles.content}>
-                <ImageBackground 
-                    source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
-                    resizeMode="cover"
-                    style={[styles.cover]}/>
-                <Text style={styles.podcastTilte}>Thanos</Text>
-                <Text h4 style={styles.podcastSubtilte}>Cutting expenses in half in a snap of fingers</Text>
-                <PlayerControls/>
-            <PlayerButtons/>
-            </View>
-            <OptionsButtons/>
-        </ImageBackground> 
-    </View>
-  )
+const PlayerDetail = ({
+    navigation,
+    route: {
+      params: hottestPodCast
+    }
+}: PlayerDetailProps) => {
+    const podcast = hottestPodCast as HottestPodcast
+
+    // TODO: Hide TabBar
+    useEffect(() => {
+        navigation.getParent()?.setOptions({tabBarStyle: {height: 1, display: 'flex'}});
+        return () => navigation.getParent()?.setOptions({tabBarStyle: {display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}});
+      }, [navigation]);
+
+    return (
+        <View
+            style={styles.container}>
+            <ImageBackground 
+                source={{uri: podcast.thumbnailImageURL}}
+                resizeMode="cover"
+                blurRadius={10}
+                style={[styles.container]}>
+                <View style={styles.content}>
+                    <ImageBackground 
+                        source={{uri: podcast.imageURL}}
+                        resizeMode="cover"
+                        style={[styles.cover]}/>
+                    <Text style={styles.podcastTilte}>{ podcast.author.name }</Text>
+                    <Text h4 style={styles.podcastSubtilte}>{ podcast.title }</Text>
+                    <PlayerControls/>
+                <PlayerButtons/>
+                </View>
+                <OptionsButtons/>
+            </ImageBackground> 
+        </View>
+    )
 }
 
 export default PlayerDetail

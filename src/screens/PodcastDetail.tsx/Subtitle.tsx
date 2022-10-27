@@ -1,14 +1,16 @@
 import { StyleSheet, View } from 'react-native'
-import {Icon} from '@rneui/themed';
 import React from 'react'
-import { darkTheme } from '../../styles/index';
 import Subtitle from 'components/Subtitle';
 
-const TitleSection = () => {
+type TitleSectionProps = {
+  title: string
+}
+
+const TitleSection = ({title}: TitleSectionProps) => {
   return (
     <View
         style={styles.container}>
-        <Subtitle/>
+        <Subtitle text={title}/>
         <></>
     </View>
   )

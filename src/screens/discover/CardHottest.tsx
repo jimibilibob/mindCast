@@ -1,36 +1,43 @@
-import { StyleSheet, View, ImageBackground } from 'react-native'
-import { Avatar, Text } from '@rneui/base'
+import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native'
+import { Text } from '@rneui/base'
 import React from 'react'
 import RatingStart from 'components/RatingStart';
 import { darkTheme } from 'styles';
 import { HottestPodcast } from './models/HomeResponse';
 
 type CardHottestProps = {
-  hottestPodcast: HottestPodcast
+  hottestPodcast: HottestPodcast,
+  onPress: () => void
 }
 
-const CardHottest = ({ hottestPodcast }: CardHottestProps) => {
+const CardHottest = ({ hottestPodcast, onPress }: CardHottestProps) => {
   return (
-    <ImageBackground 
-            source={{uri: hottestPodcast.imageURL}}
-            resizeMode="cover"
-            imageStyle={{opacity: 0.6}}
-            style={[styles.container]}
-            >
-            <View style={styles.content}>
-                <RatingStart startsAmount={hottestPodcast.stars}/>
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                    <Text
-                    style={styles.title}>
-                    { hottestPodcast.title }
-                    </Text>
-                    <Text
-                    style={styles.category}>
-                    #{hottestPodcast.category}
-                    </Text>
-                </View>
+    <TouchableOpacity
+      onPress={ () => {}}
+      style={{marginVertical: 5}}
+      onPressIn={onPress}>
+      <ImageBackground 
+        source={{uri: hottestPodcast.imageURL}}
+        resizeMode="cover"
+        imageStyle={{opacity: 0.6}}
+        style={[styles.container]}
+        >
+        <View style={styles.content}>
+            <RatingStart startsAmount={hottestPodcast.stars}/>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+                <Text
+                style={styles.title}>
+                { hottestPodcast.title }
+                </Text>
+                <Text
+                style={styles.category}>
+                #{hottestPodcast.category}
+                </Text>
             </View>
+        </View>
       </ImageBackground >
+    </TouchableOpacity>
+    
   )
 }
 

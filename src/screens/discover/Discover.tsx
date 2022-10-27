@@ -14,9 +14,13 @@ import AppContext from 'shared/AppContext';
 import { CATEGORIES, Category } from 'screens/ChooseCategory';
 import { getObject, removeItem } from 'lib';
 import { StorageConstants } from 'shared/StorageConstants';
-import { HomeResponse } from './models/HomeResponse';
+import { HomeResponse, HottestPodcast } from './models/HomeResponse';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
 
-const Discover = () => {
+type DiscoverProps = NativeStackScreenProps<RootStackParamList, 'Discover'>
+
+const Discover = ({navigation}: DiscoverProps) => {
     let player
 
     const [ homeResponse, setHomeResponse ] = useState<HomeResponse>({hottestPodcasts: [], newReleases: [], trendingAuthors: []})
@@ -51,6 +55,10 @@ const Discover = () => {
         getPodcasts()
     }, [])
 
+    const onPressPodcast = (podcast: HottestPodcast) => {
+        navigation.navigate('PodcastDetail', podcast);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.container}>
@@ -73,7 +81,7 @@ const Discover = () => {
             <FlatList
                 horizontal
                 data={homeResponse.newReleases}
-                renderItem={({item}) => <CardPodcast newRelease={item}/>}/>
+                renderItem={({item}) => <CardPodcast newRelease={item} onPress={ () => onPressPodcast(item) }/>}/>
             <HeaderSection title='Trending Authors'/>
             <FlatList
                 horizontal
@@ -83,7 +91,7 @@ const Discover = () => {
             <FlatList
                 horizontal
                 data={homeResponse.hottestPodcasts}
-                renderItem={({item}) => <CardHottest hottestPodcast={item}/>}/>
+                renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
             <PlayerFragment/>
             <Video source={{uri: 'https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/podcasts/5ce742adf8f20c0017107209/listen'}}   // Can be a URL or a local file.
                 ref={(ref) => {

@@ -29,7 +29,7 @@ export default RatingStart
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        marginVertical: 5
+        marginVertical: 10
     },
     icon: {
         paddingLeft: 2

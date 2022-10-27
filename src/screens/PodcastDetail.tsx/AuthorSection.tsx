@@ -2,19 +2,24 @@ import { StyleSheet, View } from 'react-native'
 import { Avatar, FAB, Icon, Text } from '@rneui/themed';
 import React from 'react'
 import { darkTheme } from '../../styles/index';
+import { Author } from 'screens/discover/models/HomeResponse';
 
-const AuthorSection = () => {
+type AuthorSectionProps = {
+    author: Author
+}
+
+const AuthorSection = ({ author }: AuthorSectionProps) => {
   return (
     <View
         style={styles.container}>
         <Avatar
             size={60}
             rounded
-            source={{ uri: 'https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg' }}
+            source={{ uri: author.profileImageURL }}
         />
         <Text
             style={styles.text}>
-            Ragnar Lothbrok
+            { author.name }
         </Text>
         <Text
         style={{flex: 1}}>

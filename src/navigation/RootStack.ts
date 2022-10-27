@@ -1,3 +1,4 @@
+import { HottestPodcast } from "screens/discover/models/HomeResponse"
 
 
 export type RootStackParamList = {
@@ -8,6 +9,7 @@ export type RootStackParamList = {
     Search: undefined,
     Library: undefined,
     Settings: undefined,
-    PodcastDetail: undefined,
-    PlayerDetail: undefined
+    PodcastDetail: HottestPodcast,
+    PlayerDetail: HottestPodcast,
+    DiscoverStack: undefined
 }

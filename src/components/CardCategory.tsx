@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableHighlight, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Text } from '@rneui/base'
 import React, { useContext, useEffect, useState } from 'react'
 import { Category } from 'screens/ChooseCategory';
@@ -10,31 +10,8 @@ type CardCategoryProps = {
 }
 
 const CardCategory = ({ category, onPressItem }: CardCategoryProps) => {
-    // const { selectedCategories, setSelectedCategories } = useContext(AppContext)
-    // const [ isSelected, setIsSelected ] = useState(category.isSelected)
-    
-    // const onPress = () => {
-    //     setIsSelected(true)
-    // }
-
-    // const updateCategories = () => {
-    //     if (isSelected && selectedCategories.filter( item => item.title == category.title).length > 0) return
-    //     if (isSelected) {
-    //         setSelectedCategories([category, ...selectedCategories])
-    //     } else {
-    //         const filteredCategories = selectedCategories.filter((item) => item.title != category.title)
-    //         setSelectedCategories([...filteredCategories])
-    //     }
-    //     console.log('PRESSED CATEGORY', isSelected)
-    // }
-
-    // useEffect(()=> {
-    //     updateCategories()
-    // }, [isSelected])
-
     return (
-        <TouchableHighlight
-            underlayColor="rgba(255, 0, 0, 0.6)" // Red opacity, when is selected
+        <TouchableOpacity
             onPress={ () => {}}
             style={{marginVertical: 5}}
             onPressIn={onPressItem}>
@@ -46,7 +23,7 @@ const CardCategory = ({ category, onPressItem }: CardCategoryProps) => {
                 >
                 <Text h4 style={ styles.text}>{category.title}</Text>
             </ImageBackground >
-        </TouchableHighlight>
+        </TouchableOpacity>
     )
 }
 

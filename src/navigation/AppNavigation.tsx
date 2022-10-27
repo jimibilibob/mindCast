@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { RootStackParamList } from './RootStack';
@@ -12,9 +12,22 @@ import { ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChooseCategory from 'screens/ChooseCategory';
 import { Icon } from '@rneui/base';
+import PodcastDetail from 'screens/podcastDetail.tsx/PodcastDetail';
+import PlayerDetail from 'screens/playerDetail/PlayerDetail';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const DiscoverStack = createNativeStackNavigator<RootStackParamList>();
+
+const DiscoverStackScreen = () => {
+  return (
+    <DiscoverStack.Navigator>
+      <DiscoverStack.Screen name="DiscoverStack" component={Discover} options={{headerShown: false}} />
+      <DiscoverStack.Screen name="PodcastDetail" component={PodcastDetail} options={{headerTintColor: '#FFF', headerStyle: { backgroundColor: darkTheme.navbarColor }}}/>
+      <DiscoverStack.Screen name="PlayerDetail" component={PlayerDetail} options={{headerTintColor: '#FFF', headerStyle: { backgroundColor: darkTheme.navbarColor }}}/>
+    </DiscoverStack.Navigator>
+   );
+ }
 
 const SignedScreens = () => {
 
@@ -22,7 +35,7 @@ const SignedScreens = () => {
         <>
           <Tab.Screen
               name="Discover"
-              component={Discover}
+              component={DiscoverStackScreen}
               options={{
                   headerShown: false,
               }} />

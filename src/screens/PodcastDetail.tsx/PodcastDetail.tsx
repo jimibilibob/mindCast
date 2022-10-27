@@ -7,28 +7,48 @@ import CardSection from './CardSection';
 import AuthorSection from './AuthorSection';
 import TitleSection from './Subtitle';
 import RatingStart from '../../components/RatingStart';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/RootStack';
+import { HottestPodcast } from 'screens/discover/models/HomeResponse';
 
-const PodcastDetail = () => {
+type PodcastDetailProps = NativeStackScreenProps<RootStackParamList, 'PodcastDetail'>
+
+const PodcastDetail = ({
+  navigation,
+  route: {
+    params: hottestPodCast
+  }
+}: PodcastDetailProps) => {
+  const podcast = hottestPodCast as HottestPodcast
+
+  const goToPlayerDeatils = () => {
+    navigation.navigate('PlayerDetail', podcast);
+  }
+
   return (
     <View style={styles.container}>
       <View>
       <View
           style={styles.header}>
           <ImageBackground 
-            source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
+            source={{uri: podcast.imageURL}}
             resizeMode="cover"
             style={[styles.cover]}/>
           <View
             style={styles.infoContainer}>
             <Text
                 style={styles.title}>
-                Freeing dragons
+                { podcast.title }
             </Text>
-            <RatingStart/>
-            <CustomButton
-              title={'#philosofy'}
-              color={darkTheme.navbarColor}
-              size='md'/>
+            <RatingStart startsAmount={podcast.stars}/>
+            <View style={{flexDirection: 'row'}}>
+              <CustomButton
+                title={'#'+podcast.category}
+                color={darkTheme.navbarColor}
+                size='md'
+                />
+                <View style={{flex: 1}}/>
+            </View>
           </View>
         </View>
         <View
@@ -36,6 +56,7 @@ const PodcastDetail = () => {
           <CustomButton
             title={'PLAY'}
             color={darkTheme.primaryColor}
+            onPress={goToPlayerDeatils}
             />
           <CustomButton
             title={'ADD TO PLAYLIST'}
@@ -49,10 +70,10 @@ const PodcastDetail = () => {
           />
         </View>
       </View>
-      <TitleSection/>
-      <CardSection/>
-      <TitleSection/>
-      <AuthorSection/>
+      <TitleSection title='Description'/>
+      <CardSection text={podcast.description}/>
+      <TitleSection title='Author'/>
+      <AuthorSection author={podcast.author}/>
     </View>
   )
 }
@@ -70,7 +91,8 @@ const styles = StyleSheet.create({
   },
   buttonsHeader: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 15
   },
   cover: {
     width: 100,
@@ -78,6 +100,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     paddingHorizontal: 10,
+    width: '70%',
+    fontWeight: 'bold',
     justifyContent: 'center'
   },
   title: {
