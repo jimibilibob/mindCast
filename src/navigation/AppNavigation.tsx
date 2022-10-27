@@ -70,13 +70,14 @@ const AnonymousScreens = () => {
 }
 
 const AppNavigation = () => {
-  const { isSignedIn, isLoading, hasChooseCategories } = useContext(AppContext);
+  const { isSignedIn, isLoading, hasSelectedCategories } = useContext(AppContext);
+  console.log('hasSelectedCategories', hasSelectedCategories)
 
   if (isLoading) {
     return <ActivityIndicator size={'large'} color={darkTheme.primaryColor} />;
   }
 
-  if (isSignedIn && hasChooseCategories) {
+  if (isSignedIn && hasSelectedCategories) {
     return (
       <NavigationContainer>
         <Tab.Navigator>

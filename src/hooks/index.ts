@@ -2,24 +2,30 @@ import { getEncryptedItem } from '../lib';
 import { StorageConstants } from 'shared/StorageConstants';
 import { useState, useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
+import { CATEGORIES, Category } from 'screens/ChooseCategory';
 
 export const useApp = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
-  const [hasChooseCategories, setHasChooseCategories] = useState(false);
+  const [categories, setCategories] = useState(Array<Category>);
+  const [hasSelectedCategories, setHasSelectedCategories] = useState(false);
 
   const loadApplication = async () => {
     try {
-      const hasChooseCategories = await getEncryptedItem(StorageConstants.hasChooseCategories);
-      console.log('hasChooseCategories', hasChooseCategories)
+      const hasSelectedCategories = await getEncryptedItem(StorageConstants.hasSelectedCategories);
+      const selectedCategories = await getEncryptedItem<Array<Category>>(StorageConstants.categories);
+      console.log('categories', selectedCategories)
+      console.log('hasSelectedCategories', hasSelectedCategories)
 
       if (auth().currentUser) {
         setIsSignedIn(true);
       }
     
-      if (hasChooseCategories) {
-        setHasChooseCategories(true)
+      setCategories(selectedCategories ?? CATEGORIES)
+    
+      if (hasSelectedCategories) {
+        setHasSelectedCategories(true)
       }
     } catch (error) {
       console.log('ERROR', error);
@@ -37,7 +43,9 @@ export const useApp = () => {
     setIsLoading,
     isBusy,
     setIsBusy,
-    hasChooseCategories,
-    setHasChooseCategories
+    hasSelectedCategories,
+    setHasSelectedCategories,
+    categories,
+    setCategories
   };
 }

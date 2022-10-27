@@ -1,12 +1,15 @@
 import { createContext } from 'react';
+import { Category } from 'screens/ChooseCategory';
 
 type AppContextType = {
   isSignedIn: boolean,
   isLoading: boolean,
-  hasChooseCategories: boolean,
+  hasSelectedCategories: boolean,
+  categories: Array<Category>,
   setIsSignedIn: (_: boolean) => void,
   setIsLoading: (_: boolean) => void,
-  setHasChooseCategories: (_: boolean) => void,
+  setCategories: (_: Array<Category>) => void,
+  setHasSelectedCategories: (_: boolean) => void,
   isBusy: boolean,
   setIsBusy: (_: boolean) => void,
 }
@@ -14,10 +17,12 @@ type AppContextType = {
 const defaultValue: AppContextType = {
   isSignedIn: false,
   isLoading: false,
-  hasChooseCategories: false,
+  hasSelectedCategories: false,
+  categories: [],
   setIsSignedIn: (_: boolean) => {},
   setIsLoading: (_: boolean) => {},
-  setHasChooseCategories: (_: boolean) => {},
+  setCategories: (_: Array<Category>) => {},
+  setHasSelectedCategories: (_: boolean) => {},
   isBusy: false,
   setIsBusy: (_: boolean) => {},
 }

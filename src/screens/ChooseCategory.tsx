@@ -10,12 +10,26 @@ import { StorageConstants } from 'shared/StorageConstants';
 
 const ChooseCategory = () => {
 
-  const { setHasChooseCategories } = useContext(AppContext)
+  const { categories, setCategories, setHasSelectedCategories } = useContext(AppContext)
+  console.log('categories', categories)
 
-  const goToHome = async () => {
-    // TODO: SAVE CATEGORIES
-    await setEncryptedItem(StorageConstants.hasChooseCategories, true)
-    setHasChooseCategories(true)
+  const saveCategories = async () => {
+    await setEncryptedItem(StorageConstants.categories, categories)
+    setHasSelectedCategories(true)
+  }
+
+  const onPressCategory = (index: Number) => {
+    let modifiedCategories = categories.map( (category, i) => {
+      if (index == i) {
+        return {
+          isSelected: category.isSelected ? false : true,
+          imageURL: category.imageURL,
+          title: category.title
+        }
+      }
+      return category
+    })
+    setCategories([...modifiedCategories])
   }
 
   return (
@@ -36,15 +50,15 @@ const ChooseCategory = () => {
             type= 'font-awesome'
             size= {25}
             color= {'#FFF'}
-            onPress={goToHome}/>
+            onPress={saveCategories}/>
       </View>
       <Text
         h4
         style={styles.messageText}>
         Choose the topics that you're interested in.
       </Text>
-      <ScrollView style={{marginHorizontal: 12}}>
-        {Array.from({ length: 20 }).map( (_, i) => <CardCategory key={ i }/>)}
+      <ScrollView style={{paddingHorizontal: 12}}>
+        {categories.map( (category, i) => <CardCategory key={ i } category={category} onPressItem={() => onPressCategory(i)}/>)}
       </ScrollView>
     </SafeAreaView>
   )
@@ -59,8 +73,7 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
+        alignItems: 'center',
         backgroundColor: darkTheme.navbarColor,
         height: 40
     },
@@ -78,3 +91,54 @@ const styles = StyleSheet.create({
         marginVertical: 10
     }
 })
+
+export const CATEGORIES: Array<Category> = [
+  {
+    isSelected: true,
+    title: 'ALL',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/all/all.jpg',
+  },
+  {
+    isSelected: false,
+    title: 'TECHNOLOGY',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/technology/big.jpg',
+  },
+  {
+    isSelected: false,
+    title: 'PHILOSOFY',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/philosofy/big.jpg',
+  },
+  {
+    isSelected: false,
+    title: 'SCIENCE',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/science/big.jpeg',
+  },
+  {
+    isSelected: false,
+    title: 'BUSINESS',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/business/big.jpg',
+  },
+  {
+    isSelected: false,
+    title: 'POP CULTURE',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/pop-culture/big.jpg',
+  },
+  {
+    isSelected: false,
+    title: 'HISTORY',
+    imageURL:
+      'https://s3-sa-east-1.amazonaws.com/mind-cast/images/categories/history/big.jpg',
+  },
+];
+
+export type Category = {
+  isSelected: boolean,
+  imageURL: string,
+  title: string,
+}

@@ -1,3 +1,4 @@
 export const StorageConstants = {
-    hasChooseCategories: 'hasChooseCategories',
-  };
+  categories: 'cat',
+  hasSelectedCategories: 'hasCat'
+};

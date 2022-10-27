@@ -1,8 +1,4 @@
 import EncryptedStorage from 'react-native-encrypted-storage';
-import EventEmitter from 'eventemitter3';
-
-// Singleton - Event Emitter
-const EE = new EventEmitter();
 
 export async function getEncryptedItem<T>(key: string): Promise<T | null> {
   const stringValue = await EncryptedStorage.getItem(key);

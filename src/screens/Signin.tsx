@@ -15,8 +15,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
 import { useContext } from 'react';
 import AppContext from 'shared/AppContext';
-import { setEncryptedItem } from 'lib';
-import { StorageConstants } from 'shared/StorageConstants';
 
 type SignInProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>
 
