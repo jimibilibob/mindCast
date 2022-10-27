@@ -18,11 +18,13 @@ const CustomButton = ({
     iconColor = '#fff',
     size = "lg",
     style,
+    titleStyle,
     onPress = () => {}
 }: CustomButtonProps) => {
   return (
     <Button
         title={title}
+        titleStyle={titleStyle}
         iconPosition='right'
         color={color}
         size={size}

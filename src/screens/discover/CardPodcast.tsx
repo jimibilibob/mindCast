@@ -2,11 +2,16 @@ import { StyleSheet, View, ImageBackground } from 'react-native'
 import { Avatar, Text } from '@rneui/base'
 import React from 'react'
 import { darkTheme } from '../../styles/index';
+import { HottestPodcast } from './models/HomeResponse';
 
-const CardPodcast = () => {
+type CardPodcastProps = {
+  newRelease: HottestPodcast
+}
+
+const CardPodcast = ({ newRelease }: CardPodcastProps) => {
   return (
     <ImageBackground 
-            source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
+            source={{uri: newRelease.imageURL}}
             resizeMode="cover"
             imageStyle={{opacity: 0.6}}
             style={[styles.container]}
@@ -16,22 +21,22 @@ const CardPodcast = () => {
                 <Avatar
                   size={30}
                   rounded
-                  source={{ uri: 'https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg' }}
+                  source={{ uri: newRelease.author.profileImageURL }}
                 />
                 <Text
                   style={styles.author}>
-                  Ragnar Lothbrok
+                  { newRelease.author.name }
                 </Text>
               </View>
               <View style={{flex: 1}}></View>
               <View>
                 <Text
                   style={styles.title}>
-                  Empowering your children
+                  { newRelease.title }
                 </Text>
                 <Text
                   style={styles.category}>
-                  #philosofy
+                  #{newRelease.category}
                 </Text>
               </View>
             </View>

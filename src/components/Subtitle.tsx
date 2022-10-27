@@ -1,14 +1,16 @@
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/base'
 import React from 'react'
-import CustomButton from '@components/CustomButton';
-import { darkTheme } from '../styles/index';
 
-const Subtitle = () => {
+type SubtitleProps = {
+  text: string
+}
+
+const Subtitle = ({text} : SubtitleProps) => {
   return (
     <View style={styles.container}>
       <Text
-        style={styles.text}>New Releases</Text>
+        style={styles.text}>{text}</Text>
         <View style={styles.bottomLine} />
     </View>
   )

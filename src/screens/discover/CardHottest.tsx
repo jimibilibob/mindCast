@@ -3,25 +3,30 @@ import { Avatar, Text } from '@rneui/base'
 import React from 'react'
 import RatingStart from 'components/RatingStart';
 import { darkTheme } from 'styles';
+import { HottestPodcast } from './models/HomeResponse';
 
-const CardHottest = () => {
+type CardHottestProps = {
+  hottestPodcast: HottestPodcast
+}
+
+const CardHottest = ({ hottestPodcast }: CardHottestProps) => {
   return (
     <ImageBackground 
-            source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
+            source={{uri: hottestPodcast.imageURL}}
             resizeMode="cover"
             imageStyle={{opacity: 0.6}}
             style={[styles.container]}
             >
             <View style={styles.content}>
-                <RatingStart/>
+                <RatingStart startsAmount={hottestPodcast.stars}/>
                 <View style={{flex: 1, justifyContent: 'center'}}>
                     <Text
                     style={styles.title}>
-                    Empowering your children
+                    { hottestPodcast.title }
                     </Text>
                     <Text
                     style={styles.category}>
-                    #philosofy
+                    #{hottestPodcast.category}
                     </Text>
                 </View>
             </View>

@@ -1,14 +1,17 @@
 import { StyleSheet, View } from 'react-native'
-import {Text} from '@rneui/themed';
 import React from 'react'
 import { darkTheme } from '../../styles/index';
 import CustomButton from 'components/CustomButton';
 import Subtitle from 'components/Subtitle';
 
-const HeaderSection = () => {
+type HeaderSectionProps = {
+  title: string
+}
+
+const HeaderSection = ({ title }: HeaderSectionProps) => {
   return (
     <View style={styles.container}>
-        <Subtitle/>
+        <Subtitle text={title}/>
         <CustomButton
             title={'SEE ALL'}
             size='md'

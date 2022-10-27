@@ -3,28 +3,34 @@ import { Avatar, Text } from '@rneui/base'
 import React from 'react'
 import { darkTheme } from '../../styles/index';
 import CustomButton from 'components/CustomButton';
+import { TrendingAuthor } from './models/HomeResponse';
 
-const CardAuthor = () => {
+type CardAuthorProps = {
+    trendingAuthor: TrendingAuthor
+}
+
+const CardAuthor = ( { trendingAuthor }: CardAuthorProps ) => {
   return (
 
     <View style={styles.container}>
         <Avatar
             size={60}
             rounded
-            source={{ uri: 'https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg' }}
+            source={{ uri: trendingAuthor.profileImageURL }}
         />
         <Text
             style={styles.name}>
-            Ragnar Lothbrok
+            { trendingAuthor.name }
         </Text>
         <Text
             style={styles.podcast}>
-            7 Podcasts
+            { trendingAuthor.podcasts.length } Podcasts
         </Text>
         <CustomButton
             title={'LEARN MORE'}
             size='md'
-            color={darkTheme.primaryColor}/>
+            color={darkTheme.primaryColor}
+            titleStyle={{fontSize: 15}}/>
     </View>
   )
 }
