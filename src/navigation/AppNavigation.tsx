@@ -11,6 +11,7 @@ import Signin from 'screens/Signin';
 import { ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChooseCategory from 'screens/ChooseCategory';
+import { Icon } from '@rneui/base';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -80,7 +81,41 @@ const AppNavigation = () => {
   if (isSignedIn && hasSelectedCategories) {
     return (
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={ ({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = '';
+            let type = 'font-awesome'
+            let iconColor = focused ? darkTheme.primaryColor : '#FFF'
+            switch (route.name) {
+              case 'Discover':
+                iconName = 'compass'
+                break;
+              case 'Search':
+                iconName = 'search'
+                break;
+              case 'Library':
+                iconName = 'music-box-multiple'
+                type = 'material-community'
+                break;
+              case 'Settings':
+                iconName = 'gear'
+                break;
+              default:
+                break;
+            }
+            return <Icon
+              name= {iconName}
+              type= {type}
+              size= {25}
+              color= {iconColor}
+            />
+          },
+          tabBarStyle: {
+            backgroundColor: darkTheme.screenBackgroundColor
+          },
+          tabBarActiveTintColor: darkTheme.primaryColor,
+          tabBarInactiveTintColor: '#FFF',
+        })}>
           {true ? SignedScreens() : SignedScreens()}
         </Tab.Navigator>
       </NavigationContainer>
