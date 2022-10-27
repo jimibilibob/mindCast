@@ -1,20 +1,29 @@
-import { StyleSheet, View, ImageBackground, Dimensions, ViewStyle, Platform } from 'react-native'
+import { StyleSheet, View, ImageBackground, Dimensions, ViewStyle, Platform, TouchableOpacity } from 'react-native'
 import { Text, Slider, Icon } from '@rneui/themed';
 import React, { useContext, useState } from 'react';
 import { darkTheme } from 'styles';
 import AppContext from 'shared/AppContext';
 
 type PlayerFragmentProps = {
-    isPlaying?: boolean
     containerStyle?: ViewStyle
 } 
 
-const PlayerFragment = ({ isPlaying = true, containerStyle}: PlayerFragmentProps) => {
-    const { showPlayerFragment, selectedPodCast } = useContext(AppContext)
+const PlayerFragment = ({
+    containerStyle
+}: PlayerFragmentProps) => {
+    const { showPlayerFragment, selectedPodCast, isPlaying, setIsPlaying } = useContext(AppContext)
 
     if (!showPlayerFragment) {
         return <></>
     }
+
+    const onPlayPause = () => {
+        let newValIsPlaying = !isPlaying
+        setIsPlaying(newValIsPlaying)
+    }
+
+    const onPressPrev = () => {}
+    const onNext = () => {}
 
     const [value, setValue] = useState(5);
     
@@ -35,30 +44,39 @@ const PlayerFragment = ({ isPlaying = true, containerStyle}: PlayerFragmentProps
             <View
             style={styles.container}>
                 <ImageBackground 
-                    source={{uri: 'https://s3-sa-east-1.amazonaws.com/mind-cast/images/background-image.jpg'}}
+                    source={{uri: selectedPodCast?.imageURL}}
                     resizeMode="cover"
                     style={[styles.cover]}/>
                 <View style={styles.podcastTextContainer}>
-                    <Text style={styles.podcastTilte}>Getting started with Boxe</Text>
-                    <Text style={styles.podcastSubtilte}>Cutting expenses</Text>
+                    <Text style={styles.podcastTilte}>{selectedPodCast?.title}</Text>
+                    <Text style={styles.podcastSubtilte}>{selectedPodCast?.author.name}</Text>
                 </View>
                 <View style={styles.playerControls}>
+                <TouchableOpacity
+                    onPress={onPressPrev}>
                     <Icon
                         name= 'skip-previous'
                         type= 'material-community'
                         size= {25}
                         color= {'#FFF'}/>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={onPlayPause}>
                     <Icon
                         name= {isPlaying ? 'play' : 'pause'}
                         type= 'material-community'
                         size= {25}
                         color= {'black'}
                         containerStyle={styles.playPauseButton}/>  
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={onNext}>
                     <Icon
                         name= 'skip-next'
                         type= 'material-community'
                         size= {25}
                         color= {'#FFF'}/>   
+                </TouchableOpacity>
                 </View>
             </View>
         </View>
