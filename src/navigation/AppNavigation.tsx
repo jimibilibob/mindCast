@@ -43,7 +43,7 @@ const SignedScreens = () => {
               }} />
           <Tab.Screen
               name="Search"
-              component={Discover}
+              component={ChooseCategory}
               options={{
                   headerStyle: {
                       backgroundColor: darkTheme.navbarColor,
@@ -51,7 +51,7 @@ const SignedScreens = () => {
               }} />
           <Tab.Screen
               name="Library"
-              component={Discover}
+              component={ChooseCategory}
               options={{
                   headerStyle: {
                       backgroundColor: darkTheme.navbarColor,
@@ -59,7 +59,7 @@ const SignedScreens = () => {
               }} />
           <Tab.Screen
               name="Settings"
-              component={Discover}
+              component={ChooseCategory}
               options={{
                   headerStyle: {
                       backgroundColor: darkTheme.navbarColor,

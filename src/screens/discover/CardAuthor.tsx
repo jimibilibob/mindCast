@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import { Avatar, Text } from '@rneui/base'
-import React from 'react'
+import React, { memo } from 'react'
 import { darkTheme } from '../../styles/index';
 import CustomButton from 'components/CustomButton';
 import { TrendingAuthor } from './models/HomeResponse';
@@ -35,7 +35,7 @@ const CardAuthor = ( { trendingAuthor }: CardAuthorProps ) => {
   )
 }
 
-export default CardAuthor
+export default memo(CardAuthor)
 
 const styles = StyleSheet.create({
     container: {

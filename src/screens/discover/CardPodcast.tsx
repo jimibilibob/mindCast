@@ -1,6 +1,6 @@
 import { StyleSheet, View, ImageBackground, TouchableOpacity } from 'react-native'
 import { Avatar, Text } from '@rneui/base'
-import React from 'react'
+import React, { memo } from 'react'
 import { darkTheme } from '../../styles/index';
 import { HottestPodcast } from './models/HomeResponse';
 
@@ -49,7 +49,7 @@ const CardPodcast = ({ newRelease, onPress }: CardPodcastProps) => {
   )
 }
 
-export default CardPodcast
+export default memo(CardPodcast)
 
 const styles = StyleSheet.create({
   container: {

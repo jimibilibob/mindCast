@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import Video from 'react-native-video'
 import { HottestPodcast } from 'screens/discover/models/HomeResponse'
@@ -22,6 +21,7 @@ const AudioPlayer = ({
     isPlaying,
     setIsPlaying
 }: AudioPlayerProps) => {
+    console.log('Audio Component');
     let _soundRef: Video | null = null
 
     const { seekValue, currentPodcast, paused } = player

@@ -20,8 +20,8 @@ const PodcastDetail = ({
     params: hottestPodCast
   }
 }: PodcastDetailProps) => {
-  const { showPlayerFragment } = useContext(AppContext)
-  console.log('IS SHOWING', showPlayerFragment)
+  const { selectedPodCast } = useContext(AppContext)
+  // console.log('IS SHOWING', selectedPodCast)
   const podcast = hottestPodCast as HottestPodcast
 
   const goToPlayerDeatils = () => {
@@ -81,7 +81,7 @@ const PodcastDetail = ({
       <CardSection text={podcast.description}/>
       <TitleSection title='Author'/>
       <AuthorSection author={podcast.author}/>
-      {showPlayerFragment ? <View style={{ minHeight: '100%' }}/> : <></> }
+      {selectedPodCast ? <View style={{ minHeight: '100%' }}/> : <></> }
     </ScrollView>
   )
 }

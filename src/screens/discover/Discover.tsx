@@ -76,7 +76,8 @@ const Discover = ({navigation}: DiscoverProps) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.container}>
+            <ScrollView
+                style={styles.container}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                     <Text
                         h3
@@ -95,16 +96,19 @@ const Discover = ({navigation}: DiscoverProps) => {
                 <HeaderSection title='New Releases'/>
                 <FlatList
                     horizontal
+                    initialNumToRender={3}
                     data={homeResponse.newReleases}
                     renderItem={({item}) => <CardPodcast newRelease={item} onPress={ () => onPressPodcast(item) }/>}/>
                 <HeaderSection title='Trending Authors'/>
                 <FlatList
                     horizontal
+                    initialNumToRender={3}
                     data={homeResponse.trendingAuthors}
                     renderItem={({item}) => <CardAuthor trendingAuthor={item}/>}/>
                 <HeaderSection title='Hottest Podcasts'/>
                 <FlatList
                     horizontal
+                    initialNumToRender={3}
                     data={homeResponse.hottestPodcasts}
                     renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
                 {showPlayerFragment ? <View style={{ height: 120 }}/> : <></> }
@@ -117,7 +121,7 @@ export default Discover
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: '100%',
         backgroundColor: darkTheme.navbarColor,
     },
     title: {
