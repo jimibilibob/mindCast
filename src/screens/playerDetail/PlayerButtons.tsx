@@ -2,21 +2,19 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Icon } from '@rneui/themed';
 import React from 'react'
 import { darkTheme } from '../../styles/index';
-import { useContext } from 'react';
-import AppContext from 'shared/AppContext';
 
 type PlayerButtonsProps = {
     onPlayPause: () => void,
     onPressPrev: () => void,
     onNext: () => void,
-    isPlaying?: boolean
+    isPlaying: boolean
 }
 
 const PlayerButtons = ({
     onPlayPause,
     onPressPrev,
     onNext,
-    isPlaying = false }: PlayerButtonsProps) => {
+    isPlaying }: PlayerButtonsProps) => {
     return (
         <View
             style={styles.container}>
@@ -31,7 +29,7 @@ const PlayerButtons = ({
             <TouchableOpacity
                 onPress={onPlayPause}>
                 <Icon
-                    name= {isPlaying ? 'play' : 'pause'}
+                    name= {isPlaying ? 'pause' : 'play'}
                     type= 'material-community'
                     size= {30}
                     color= {'#FFF'}

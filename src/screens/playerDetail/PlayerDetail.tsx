@@ -18,13 +18,24 @@ const PlayerDetail = ({
       params: hottestPodCast
     }
 }: PlayerDetailProps) => {
-    const { setShowPlayerFragment, selectedPodCast, setSelectedPodCast, isPlaying, setIsPlaying } = useContext(AppContext)
+    const {
+        setShowPlayerFragment,
+        selectedPodCast,
+        setSelectedPodCast,
+        isPlaying,
+        setIsPlaying,
+        progressTime,
+        setProgressTime,
+        setSeekValue
+    } = useContext(AppContext)
     const podcast = hottestPodCast as HottestPodcast
 
     useEffect(() => {
         setShowPlayerFragment(false)
+        setSelectedPodCast(podcast)
+        setIsPlaying(true)
         return () => {
-            setShowPlayerFragment(selectedPodCast ? true : false)
+            setShowPlayerFragment(true)
         }
     }, [])
 
@@ -34,9 +45,7 @@ const PlayerDetail = ({
       }, [navigation]);
 
     const onPlayPause = () => {
-        setSelectedPodCast(podcast)
-        let newValIsPlaying = !isPlaying
-        setIsPlaying(newValIsPlaying)
+        setIsPlaying(isPlaying ? false : true)
     }
 
     const onPressPrev = () => {}
@@ -63,7 +72,11 @@ const PlayerDetail = ({
                         style={[styles.cover]}/>
                     <Text style={styles.podcastTilte}>{ podcast.author.name }</Text>
                     <Text h4 style={styles.podcastSubtilte}>{ podcast.title }</Text>
-                    <PlayerControls/>
+                    <PlayerControls
+                        setSeekValue={setSeekValue}
+                        selectedPodcast={podcast}
+                        progressTime={progressTime}
+                        setProgressTime={setProgressTime}/>
                 <PlayerButtons {...actions} isPlaying={isPlaying && podcast.id == selectedPodCast?.id } />
                 </View>
                 <OptionsButtons/>

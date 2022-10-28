@@ -13,6 +13,8 @@ export const useApp = () => {
   const [showPlayerFragment, setShowPlayerFragment] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedPodCast, setSelectedPodCast] = useState(undefined);
+  const [progressTime, setProgressTime] = useState(0);
+  const [seekValue, setSeekValue] = useState(0);
 
   const loadApplication = async () => {
     try {
@@ -55,6 +57,10 @@ export const useApp = () => {
     selectedPodCast,
     setSelectedPodCast,
     isPlaying,
-    setIsPlaying
+    setIsPlaying,
+    progressTime,
+    setProgressTime,
+    seekValue,
+    setSeekValue
   };
 }

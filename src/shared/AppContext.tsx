@@ -12,6 +12,8 @@ type AppContextType = {
   selectedPodCast?: HottestPodcast,
   showPlayerFragment: boolean,
   isPlaying: boolean,
+  progressTime: number,
+  seekValue: number,
   setIsSignedIn: (_: boolean) => void,
   setIsLoading: (_: boolean) => void,
   setCategories: (_: Array<Category>) => void,
@@ -19,6 +21,8 @@ type AppContextType = {
   setSelectedPodCast: (_: HottestPodcast) => void
   setShowPlayerFragment: (_: boolean) => void,
   setIsPlaying: (_: boolean) => void,
+  setProgressTime: (_: number) => void,
+  setSeekValue: (_: number) => void,
 }
 
 const defaultValue: AppContextType = {
@@ -30,6 +34,8 @@ const defaultValue: AppContextType = {
   showPlayerFragment: false,
   isPlaying: false,
   isBusy: false,
+  progressTime: 0,
+  seekValue: 0,
   setIsBusy: (_: boolean) => {},
   setIsSignedIn: (_: boolean) => {},
   setIsLoading: (_: boolean) => {},
@@ -37,7 +43,9 @@ const defaultValue: AppContextType = {
   setHasSelectedCategories: (_: boolean) => {},
   setSelectedPodCast: (_: HottestPodcast) => {},
   setShowPlayerFragment: (_: boolean) => false,
-  setIsPlaying: (_: boolean) => false
+  setIsPlaying: (_: boolean) => false,
+  setProgressTime: (_: number) => {},
+  setSeekValue: (_: number) => {}
 }
 
 export const AppContext = createContext(defaultValue);

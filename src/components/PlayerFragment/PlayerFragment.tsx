@@ -3,7 +3,9 @@ import { Text, Slider, Icon } from '@rneui/themed';
 import React, { useContext, useState } from 'react';
 import { darkTheme } from 'styles';
 import AppContext from 'shared/AppContext';
-import Audio from 'components/Audio.tsx/Audio';
+import { createNavigationContainerRef } from '@react-navigation/native';
+
+export const navigationRef = createNavigationContainerRef()
 
 type PlayerFragmentProps = {
     containerStyle?: ViewStyle
@@ -12,7 +14,13 @@ type PlayerFragmentProps = {
 const PlayerFragment = ({
     containerStyle
 }: PlayerFragmentProps) => {
-    const { showPlayerFragment, selectedPodCast, isPlaying, setIsPlaying } = useContext(AppContext)
+    const {
+        showPlayerFragment,
+        selectedPodCast,
+        isPlaying,
+        setIsPlaying,
+        progressTime
+    } = useContext(AppContext)
 
     if (!showPlayerFragment) {
         return <></>
@@ -26,16 +34,21 @@ const PlayerFragment = ({
     const onPressPrev = () => {}
     const onNext = () => {}
 
-    const [value, setValue] = useState(5);
+    const goToPlayerDeatils = () => {
+        if (navigationRef.isReady()) {
+            navigationRef.navigate('PlayerDetail', selectedPodCast);
+          }
+      }
     
     return (
         <View style={[styles.mainContainer, containerStyle]}>
             <Slider
-            value={value}
-            onValueChange={setValue}
+            value={progressTime}
+            // onValueChange={setValue}
             maximumValue={100}
             minimumValue={0}
             step={1}
+            disabled
             minimumTrackTintColor={'red'}
             maximumTrackTintColor={'rgba(255,255,255, 0.8)'}
             trackStyle={{ height: 3 }}
@@ -44,14 +57,18 @@ const PlayerFragment = ({
             />
             <View
             style={styles.container}>
-                <ImageBackground 
-                    source={{uri: selectedPodCast?.imageURL}}
-                    resizeMode="cover"
-                    style={[styles.cover]}/>
-                <View style={styles.podcastTextContainer}>
-                    <Text style={styles.podcastTilte}>{selectedPodCast?.title}</Text>
-                    <Text style={styles.podcastSubtilte}>{selectedPodCast?.author.name}</Text>
-                </View>
+                <TouchableOpacity
+                    onPress={goToPlayerDeatils}
+                    style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
+                    <ImageBackground 
+                        source={{uri: selectedPodCast?.imageURL}}
+                        resizeMode="cover"
+                        style={[styles.cover]}/>
+                    <View style={styles.podcastTextContainer}>
+                        <Text style={styles.podcastTilte}>{selectedPodCast?.title}</Text>
+                        <Text style={styles.podcastSubtilte}>{selectedPodCast?.author.name}</Text>
+                    </View>
+                </TouchableOpacity>
                 <View style={styles.playerControls}>
                 <TouchableOpacity
                     onPress={onPressPrev}>
@@ -64,7 +81,7 @@ const PlayerFragment = ({
                 <TouchableOpacity
                     onPress={onPlayPause}>
                     <Icon
-                        name= {isPlaying ? 'play' : 'pause'}
+                        name= {isPlaying ? 'pause' : 'play'}
                         type= 'material-community'
                         size= {25}
                         color= {'black'}
@@ -80,15 +97,6 @@ const PlayerFragment = ({
                 </TouchableOpacity>
                 </View>
             </View>
-            <Audio
-                isPlaying={isPlaying}
-                player={{
-                    currentPodcast: selectedPodCast!,
-                    seekValue: 1,
-                    paused: isPlaying ? false : true,
-                    shouldSeekProgressSlider: true
-                }}
-                />
         </View>
         
   )

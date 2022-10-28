@@ -2,16 +2,32 @@ import { StyleSheet, View } from 'react-native'
 import { Slider, Text } from '@rneui/themed';
 import React, { useState } from 'react'
 import { darkTheme } from '../../styles/index';
+import { HottestPodcast } from 'screens/discover/models/HomeResponse';
+import { getTimesLabel } from 'lib';
 
-const PlayerControls = () => {
-    const [value, setValue] = useState(0);
+type PlayerControlsProps = {
+    setProgressTime: (_: number) => void,
+    setSeekValue: (_: number) => void,
+    progressTime: number,
+    selectedPodcast: HottestPodcast
+}
+
+const PlayerControls = ({
+    setProgressTime,
+    progressTime,
+    selectedPodcast,
+    setSeekValue
+}: PlayerControlsProps) => {
 
     return (
         <View style={[styles.container]}>
             <Slider
-                value={value}
-                onValueChange={setValue}
-                maximumValue={68}
+                value={progressTime}
+                // onValueChange={setProgressTime}
+                maximumValue={selectedPodcast.durationInSeconds}
+                onSlidingComplete={(val) => {
+                    setSeekValue(val)
+                }}
                 minimumValue={0}
                 step={1}
                 allowTouchTrack
@@ -22,8 +38,8 @@ const PlayerControls = () => {
                 style={{height: 20, marginHorizontal: 15}}
             />
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{value}:30</Text>
-                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{value}:60</Text>
+                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{getTimesLabel(progressTime)}</Text>
+                <Text style={{ color: '#FFF', fontWeight: 'bold' }}>{getTimesLabel(selectedPodcast.durationInSeconds - progressTime)}</Text>
             </View>
         </View>
     )

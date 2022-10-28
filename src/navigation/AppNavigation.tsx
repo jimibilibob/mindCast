@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavigationContainer, DefaultTheme, useTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { RootStackParamList } from './RootStack';
@@ -8,13 +8,14 @@ import AppContext from 'shared/AppContext';
 import { darkTheme } from 'styles';
 import Signup from 'screens/Signup';
 import Signin from 'screens/Signin';
-import { ActivityIndicator, Platform } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChooseCategory from 'screens/ChooseCategory';
 import { Icon } from '@rneui/base';
 import PodcastDetail from 'screens/podcastDetail.tsx/PodcastDetail';
 import PlayerDetail from 'screens/playerDetail/PlayerDetail';
-import PlayerFragment from 'components/PlayerFragment/PlayerFragment';
+import PlayerFragment, { navigationRef } from 'components/PlayerFragment/PlayerFragment';
+import Audio from 'components/Audio.tsx/Audio';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -85,8 +86,16 @@ const AnonymousScreens = () => {
 }
 
 const AppNavigation = () => {
-  const { isSignedIn, isLoading, hasSelectedCategories } = useContext(AppContext);
-  // console.log('hasSelectedCategories', hasSelectedCategories)
+  const {
+    isSignedIn,
+    isLoading,
+    hasSelectedCategories,
+    isPlaying,
+    selectedPodCast,
+    setIsPlaying,
+    setProgressTime,
+    seekValue
+  } = useContext(AppContext);
 
   if (isLoading) {
     return <ActivityIndicator size={'large'} color={darkTheme.primaryColor} />;
@@ -94,7 +103,17 @@ const AppNavigation = () => {
 
   if (isSignedIn && hasSelectedCategories) {
     return (
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
+        <Audio
+          setProgressTime={setProgressTime}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          player={{
+              currentPodcast: selectedPodCast,
+              seekValue: seekValue,
+              paused: isPlaying ? false : true,
+              shouldSeekProgressSlider: true
+          }}/>
         <PlayerFragment/>
         <Tab.Navigator screenOptions={ ({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
