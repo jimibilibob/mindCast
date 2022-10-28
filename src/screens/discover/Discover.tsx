@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform, Dimensions } from 'react-native'
 import { Icon, Text } from '@rneui/base'
 import React, { useContext, useEffect, useState } from 'react'
 import auth from '@react-native-firebase/auth';
@@ -121,7 +121,9 @@ export default Discover
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        height: Platform.OS == 'ios'
+            ? Dimensions.get('window').height - 75
+            : Dimensions.get('window').height - 25,
         backgroundColor: darkTheme.navbarColor,
     },
     title: {
