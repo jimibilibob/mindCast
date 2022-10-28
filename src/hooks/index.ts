@@ -7,7 +7,6 @@ import { CATEGORIES, Category } from 'screens/ChooseCategory';
 export const useApp = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isBusy, setIsBusy] = useState(false);
   const [categories, setCategories] = useState(Array<Category>);
   const [hasSelectedCategories, setHasSelectedCategories] = useState(false);
   const [showPlayerFragment, setShowPlayerFragment] = useState(false);
@@ -46,8 +45,6 @@ export const useApp = () => {
     setIsSignedIn,
     isLoading,
     setIsLoading,
-    isBusy,
-    setIsBusy,
     hasSelectedCategories,
     setHasSelectedCategories,
     categories,

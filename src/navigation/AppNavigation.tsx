@@ -111,8 +111,7 @@ const AppNavigation = () => {
           player={{
               currentPodcast: selectedPodCast,
               seekValue: seekValue,
-              paused: isPlaying ? false : true,
-              shouldSeekProgressSlider: true
+              paused: isPlaying ? false : true
           }}/>
         <PlayerFragment/>
         <Tab.Navigator screenOptions={ ({route}) => ({

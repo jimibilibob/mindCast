@@ -4,7 +4,6 @@ import Video from 'react-native-video'
 import { HottestPodcast } from 'screens/discover/models/HomeResponse'
 
 type PlayerProps = {
-    shouldSeekProgressSlider: boolean,
     currentPodcast?: HottestPodcast,
     paused: boolean,
     seekValue: number
@@ -25,7 +24,7 @@ const AudioPlayer = ({
 }: AudioPlayerProps) => {
     let _soundRef: Video | null = null
 
-    const { shouldSeekProgressSlider, seekValue, currentPodcast, paused } = player
+    const { seekValue, currentPodcast, paused } = player
     if (!currentPodcast) return <></>
 
 
@@ -57,12 +56,3 @@ const AudioPlayer = ({
 }
 
 export default AudioPlayer
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 15,
-        marginHorizontal: 40
-    }
-})

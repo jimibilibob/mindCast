@@ -40,9 +40,12 @@ const PlayerDetail = ({
     }, [])
 
     useEffect(() => {
+        navigation.setOptions({title: '#'+hottestPodCast.category, headerTitleStyle: {fontWeight: 'bold'}})
         navigation.getParent()?.setOptions({tabBarStyle: {height: 1, display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}});
-        return () => navigation.getParent()?.setOptions({tabBarStyle: {display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}});
-      }, [navigation]);
+        return () => {
+            navigation.getParent()?.setOptions({tabBarStyle: {display: 'flex', backgroundColor: darkTheme.screenBackgroundColor}})
+        };
+      }, []);
 
     const onPlayPause = () => {
         setIsPlaying(isPlaying ? false : true)

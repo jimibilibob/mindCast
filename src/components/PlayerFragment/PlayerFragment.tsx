@@ -1,11 +1,12 @@
-import { StyleSheet, View, ImageBackground, Dimensions, ViewStyle, Platform, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, ImageBackground, ViewStyle, Platform, TouchableOpacity } from 'react-native'
 import { Text, Slider, Icon } from '@rneui/themed';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { darkTheme } from 'styles';
 import AppContext from 'shared/AppContext';
 import { createNavigationContainerRef } from '@react-navigation/native';
+import { RootStackParamList } from 'navigation/RootStack';
 
-export const navigationRef = createNavigationContainerRef()
+export const navigationRef = createNavigationContainerRef<RootStackParamList>()
 
 type PlayerFragmentProps = {
     containerStyle?: ViewStyle
@@ -36,25 +37,23 @@ const PlayerFragment = ({
 
     const goToPlayerDeatils = () => {
         if (navigationRef.isReady()) {
-            navigationRef.navigate('PlayerDetail', selectedPodCast);
+            navigationRef.navigate('PlayerDetail', selectedPodCast!);
           }
       }
     
     return (
         <View style={[styles.mainContainer, containerStyle]}>
             <Slider
-            value={progressTime}
-            // onValueChange={setValue}
-            maximumValue={100}
-            minimumValue={0}
-            step={1}
-            disabled
-            minimumTrackTintColor={'red'}
-            maximumTrackTintColor={'rgba(255,255,255, 0.8)'}
-            trackStyle={{ height: 3 }}
-            thumbStyle={{ height: 3, width: 3, backgroundColor: darkTheme.primaryColor }}
-            style={{height: 3}}
-            />
+                value={progressTime}
+                maximumValue={selectedPodCast?.durationInSeconds}
+                minimumValue={0}
+                step={1}
+                disabled
+                minimumTrackTintColor={'red'}
+                maximumTrackTintColor={'rgba(255,255,255, 0.8)'}
+                trackStyle={{ height: 3 }}
+                thumbStyle={{ height: 3, width: 3, backgroundColor: darkTheme.primaryColor }}
+                style={{height: 3}}/>
             <View
             style={styles.container}>
                 <TouchableOpacity
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         bottom: Platform.OS == 'android' ? '7%' : '9%',
-        zIndex: 100,
+        zIndex: 1,
         elevation: 10
     },
     container: {

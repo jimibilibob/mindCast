@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, SafeAreaView, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform } from 'react-native'
 import { Icon, Text } from '@rneui/base'
 import React, { useContext, useEffect, useState } from 'react'
 import auth from '@react-native-firebase/auth';
@@ -15,15 +15,14 @@ import { StorageConstants } from 'shared/StorageConstants';
 import { HomeResponse, HottestPodcast } from './models/HomeResponse';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
-import Video from 'react-native-video';
 
 type DiscoverProps = NativeStackScreenProps<RootStackParamList, 'Discover'>
 
 const Discover = ({navigation}: DiscoverProps) => {
-    let player
+    const [isLoading, setIsLoading] = useState(true)
 
     const [ homeResponse, setHomeResponse ] = useState<HomeResponse>({hottestPodcasts: [], newReleases: [], trendingAuthors: []})
-    const { setIsSignedIn, setCategories, setHasSelectedCategories, setShowPlayerFragment } = useContext(AppContext)
+    const { setIsSignedIn, setCategories, setHasSelectedCategories, showPlayerFragment } = useContext(AppContext)
 
     const signOut = async () => {
         try {
@@ -36,18 +35,20 @@ const Discover = ({navigation}: DiscoverProps) => {
             setIsSignedIn(false)
             setCategories(CATEGORIES),
             setHasSelectedCategories(false)
-            setShowPlayerFragment(false)
         }
     }
 
     const getPodcasts = async () => {
         try {
             const selectedCategories = (await getObject(StorageConstants.categories)) as Array<Category>;
-            const response = await fetch('https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/home?categories=science&categories=history').then( res => res.json() )
+            console.log('SELECTED CATEGORIES', buildParams(selectedCategories))
+            // TODO: Create method to build the params, based on the selectedCategories array
+            const response = await fetch(`https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/home?${buildParams(selectedCategories)}`).then( res => res.json() )
             setHomeResponse(response as HomeResponse)
-            // console.log('PodCasts', (response as HomeResponse))
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -57,6 +58,20 @@ const Discover = ({navigation}: DiscoverProps) => {
 
     const onPressPodcast = (podcast: HottestPodcast) => {
         navigation.navigate('PodcastDetail', podcast);
+    }
+
+    const buildParams = (categories: Category[]): string => {
+        return categories.filter(c => c.isSelected)
+        .map(cat => [`categories=${cat.title.toLocaleLowerCase().replace(' ', '-')}`])
+        .join('&')
+    }
+
+    if (isLoading) {
+        return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: darkTheme.screenBackgroundColor}}>
+                <ActivityIndicator size="large" color={darkTheme.primaryColor} />
+            </View>
+        )
     }
 
     return (
@@ -92,6 +107,7 @@ const Discover = ({navigation}: DiscoverProps) => {
                     horizontal
                     data={homeResponse.hottestPodcasts}
                     renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
+                {showPlayerFragment ? <View style={{ height: 120 }}/> : <></> }
             </ScrollView>
         </SafeAreaView>
     )

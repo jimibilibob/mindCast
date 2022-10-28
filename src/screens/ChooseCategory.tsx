@@ -19,18 +19,38 @@ const ChooseCategory = () => {
     setHasSelectedCategories(true)
   }
 
-  const onPressCategory = (index: Number) => {
-    let modifiedCategories = categories.map( (category, i) => {
-      if (index == i) {
+  const onPressCategory = (index: number) => {
+    const allCategory = categories[0]
+    let modifiedCategories = [... categories]
+    if (index == 0 && allCategory.isSelected) return
+    if (index == 0 && !allCategory.isSelected) {
+      modifiedCategories = categories.map( c => {
         return {
-          isSelected: category.isSelected ? false : true,
-          imageURL: category.imageURL,
-          title: category.title
+          imageURL: c.imageURL,
+          isSelected: false,
+          title: c.title
         }
+      })
+    }
+    if (index != 0 && allCategory.isSelected) {
+      modifiedCategories[0] = {
+        imageURL: allCategory.imageURL,
+        isSelected: false,
+        title: allCategory.title
       }
-      return category
-    })
-    setCategories([...modifiedCategories])
+      modifiedCategories[index] = {
+        imageURL: modifiedCategories[index].imageURL,
+        isSelected: !modifiedCategories[index].isSelected,
+        title: modifiedCategories[index].title,
+      }
+    } else {
+      modifiedCategories[index] = {
+        imageURL: modifiedCategories[index].imageURL,
+        isSelected: !modifiedCategories[index].isSelected,
+        title: modifiedCategories[index].title,
+      }
+    }
+    setCategories([... modifiedCategories])
   }
 
   return (

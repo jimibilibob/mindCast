@@ -1,6 +1,6 @@
-import { StyleSheet, View, ImageBackground } from 'react-native'
+import { StyleSheet, View, ImageBackground, ScrollView } from 'react-native'
 import { Text, FAB } from '@rneui/base'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { darkTheme } from '../../styles/index';
 import CustomButton from 'components/CustomButton';
 import CardSection from './CardSection';
@@ -10,6 +10,7 @@ import RatingStart from '../../components/RatingStart';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'navigation/RootStack';
 import { HottestPodcast } from 'screens/discover/models/HomeResponse';
+import AppContext from 'shared/AppContext';
 
 type PodcastDetailProps = NativeStackScreenProps<RootStackParamList, 'PodcastDetail'>
 
@@ -19,14 +20,20 @@ const PodcastDetail = ({
     params: hottestPodCast
   }
 }: PodcastDetailProps) => {
+  const { showPlayerFragment } = useContext(AppContext)
+  console.log('IS SHOWING', showPlayerFragment)
   const podcast = hottestPodCast as HottestPodcast
 
   const goToPlayerDeatils = () => {
     navigation.navigate('PlayerDetail', podcast);
   }
 
+  useEffect(()=>{
+    navigation.setOptions({title: 'Podcast Detail', headerTitleStyle: {fontWeight: 'bold'}})
+  }, [])
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View>
       <View
           style={styles.header}>
@@ -74,7 +81,8 @@ const PodcastDetail = ({
       <CardSection text={podcast.description}/>
       <TitleSection title='Author'/>
       <AuthorSection author={podcast.author}/>
-    </View>
+      {showPlayerFragment ? <View style={{ minHeight: '100%' }}/> : <></> }
+    </ScrollView>
   )
 }
 
