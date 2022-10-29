@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, TouchableOpacity, SafeAreaView, View, ActivityIndicator, Platform, Dimensions } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform, Dimensions } from 'react-native'
 import { Icon, Text } from '@rneui/base'
 import React, { useContext, useEffect, useState } from 'react'
 import auth from '@react-native-firebase/auth';
@@ -43,12 +43,7 @@ const Discover = ({navigation}: DiscoverProps) => {
             const selectedCategories = (await getObject(StorageConstants.categories)) as Array<Category>;
             console.log('SELECTED CATEGORIES', buildParams(selectedCategories))
             const response = await fetch(`https://stenio-portifolio-mindcast.herokuapp.com/mind-cast/api/v1/home?${buildParams(selectedCategories)}`).then( res => res.json() )
-            const res = response as HomeResponse
-            setHomeResponse({
-                hottestPodcasts: res.hottestPodcasts.slice(0, 2),
-                newReleases: res.newReleases.slice(0, 2),
-                trendingAuthors: res.trendingAuthors.slice(0, 2)
-            })
+            setHomeResponse(response as HomeResponse)
         } catch (error) {
             console.log(error)
         } finally {
