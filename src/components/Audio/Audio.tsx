@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Platform } from 'react-native'
 import Video from 'react-native-video'
 import { HottestPodcast } from 'screens/discover/models/HomeResponse'
 
@@ -48,7 +49,7 @@ const AudioPlayer = ({
             setProgressTime(0)
         }}
         rate={1.0}
-        repeat={isPlaying}
+        repeat={Platform.OS == 'android' ? false : true }
         audioOnly
         ignoreSilentSwitch={'ignore'}
         playInBackground/>

@@ -8,14 +8,14 @@ import AppContext from 'shared/AppContext';
 import { darkTheme } from 'styles';
 import Signup from 'screens/Signup';
 import Signin from 'screens/Signin';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChooseCategory from 'screens/ChooseCategory';
 import { Icon } from '@rneui/base';
 import PodcastDetail from 'screens/podcastDetail.tsx/PodcastDetail';
 import PlayerDetail from 'screens/playerDetail/PlayerDetail';
 import PlayerFragment, { navigationRef } from 'components/PlayerFragment/PlayerFragment';
-import Audio from 'components/Audio.tsx/Audio';
+import Audio from 'components/Audio/Audio';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -113,7 +113,6 @@ const AppNavigation = () => {
               seekValue: seekValue,
               paused: isPlaying ? false : true
           }}/>
-        <PlayerFragment/>
         <Tab.Navigator screenOptions={ ({route}) => ({
           tabBarIcon: ({focused, color, size}) => {
             let iconName = '';
@@ -151,6 +150,15 @@ const AppNavigation = () => {
         })}>
           {true ? SignedScreens() : SignedScreens()}
         </Tab.Navigator>
+        <PlayerFragment/>
+        {/* <TouchableOpacity
+    
+    onPress={() => {
+        console.log('Button Pressed')
+    }}
+>
+    <Text>Hello Bottom Button</Text>
+</TouchableOpacity> */}
       </NavigationContainer>
     );
   }

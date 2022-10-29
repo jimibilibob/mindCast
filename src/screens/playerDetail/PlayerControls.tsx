@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native'
-import { Slider, Text } from '@rneui/themed';
+import { Text } from '@rneui/themed';
 import React, { useState } from 'react'
 import { darkTheme } from '../../styles/index';
 import { HottestPodcast } from 'screens/discover/models/HomeResponse';
+import { Slider } from 'react-native-elements';
 import { getTimesLabel } from 'lib';
 
 type PlayerControlsProps = {
@@ -23,7 +24,7 @@ const PlayerControls = ({
         <View style={[styles.container]}>
             <Slider
                 value={progressTime}
-                // onValueChange={setProgressTime}
+                onValueChange={setProgressTime}
                 maximumValue={selectedPodcast.durationInSeconds}
                 onSlidingComplete={(val) => {
                     setSeekValue(val)

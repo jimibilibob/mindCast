@@ -1,4 +1,4 @@
-import { StyleSheet, View, ImageBackground, ScrollView } from 'react-native'
+import { StyleSheet, View, ImageBackground, ScrollView, Dimensions } from 'react-native'
 import { Text, FAB } from '@rneui/base'
 import React, { useContext, useEffect } from 'react'
 import { darkTheme } from '../../styles/index';
@@ -33,56 +33,56 @@ const PodcastDetail = ({
   }, [])
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
-      <View
-          style={styles.header}>
-          <ImageBackground 
-            source={{uri: podcast.imageURL}}
-            resizeMode="cover"
-            style={[styles.cover]}/>
+      <ScrollView style={styles.container}>
+        <View>
           <View
-            style={styles.infoContainer}>
-            <Text
-                style={styles.title}>
-                { podcast.title }
-            </Text>
-            <RatingStart startsAmount={podcast.stars}/>
-            <View style={{flexDirection: 'row'}}>
-              <CustomButton
-                title={'#'+podcast.category}
-                color={darkTheme.navbarColor}
-                size='md'
-                />
-                <View style={{flex: 1}}/>
+              style={styles.header}>
+              <ImageBackground 
+                source={{uri: podcast.imageURL}}
+                resizeMode="cover"
+                style={[styles.cover]}/>
+              <View
+                style={styles.infoContainer}>
+                <Text
+                    style={styles.title}>
+                    { podcast.title }
+                </Text>
+                <RatingStart startsAmount={podcast.stars}/>
+                <View style={{flexDirection: 'row'}}>
+                  <CustomButton
+                    title={'#'+podcast.category}
+                    color={darkTheme.navbarColor}
+                    size='md'
+                    />
+                    <View style={{flex: 1}}/>
+                </View>
+              </View>
             </View>
+          <View
+            style={styles.buttonsHeader}>
+            <CustomButton
+              title={'PLAY'}
+              color={darkTheme.primaryColor}
+              onPress={goToPlayerDeatils}
+              />
+            <CustomButton
+              title={'ADD TO PLAYLIST'}
+              color={darkTheme.screenBackgroundColor}
+              style={{borderColor: '#FFF', borderWidth: 1.5, marginHorizontal: 10}}/>
+            <View style={{flex: 1}}/>
+            <FAB
+              visible={true}
+              icon={{ name: 'clouddownloado', type: 'ant-design', color: darkTheme.secondaryColorText }}
+              color='#FFF'
+            />
           </View>
         </View>
-        <View
-          style={styles.buttonsHeader}>
-          <CustomButton
-            title={'PLAY'}
-            color={darkTheme.primaryColor}
-            onPress={goToPlayerDeatils}
-            />
-          <CustomButton
-            title={'ADD TO PLAYLIST'}
-            color={darkTheme.screenBackgroundColor}
-            style={{borderColor: '#FFF', borderWidth: 1.5, marginHorizontal: 10}}/>
-          <View style={{flex: 1}}/>
-          <FAB
-            visible={true}
-            icon={{ name: 'clouddownloado', type: 'ant-design', color: darkTheme.secondaryColorText }}
-            color='#FFF'
-          />
-        </View>
-      </View>
-      <TitleSection title='Description'/>
-      <CardSection text={podcast.description}/>
-      <TitleSection title='Author'/>
-      <AuthorSection author={podcast.author}/>
-      {selectedPodCast ? <View style={{ minHeight: '100%' }}/> : <></> }
-    </ScrollView>
+        <TitleSection title='Description'/>
+        <CardSection text={podcast.description}/>
+        <TitleSection title='Author'/>
+        <AuthorSection author={podcast.author}/>
+      {selectedPodCast ? <View style={{ minHeight: 150 }}/> : <></> }
+      </ScrollView>
   )
 }
 
@@ -90,7 +90,7 @@ export default PodcastDetail
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: Dimensions.get('screen').height,
     backgroundColor: darkTheme.screenBackgroundColor,
     padding: 10
   },
