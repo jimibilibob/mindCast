@@ -1,5 +1,6 @@
-import { FlatList, ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform, Dimensions } from 'react-native'
+import { ScrollView, StyleSheet, SafeAreaView, View, ActivityIndicator, Platform, Dimensions } from 'react-native'
 import { Icon, Text } from '@rneui/base'
+import { FlashList } from "@shopify/flash-list";
 import React, { useContext, useEffect, useState } from 'react'
 import auth from '@react-native-firebase/auth';
 
@@ -93,21 +94,21 @@ const Discover = ({navigation}: DiscoverProps) => {
                         />
                 </View>
                 <HeaderSection title='New Releases'/>
-                <FlatList
+                <FlashList
+                    estimatedItemSize={150}
                     horizontal
-                    initialNumToRender={3}
                     data={homeResponse.newReleases}
                     renderItem={({item}) => <CardPodcast newRelease={item} onPress={ () => onPressPodcast(item) }/>}/>
                 <HeaderSection title='Trending Authors'/>
-                <FlatList
+                <FlashList
+                    estimatedItemSize={150}
                     horizontal
-                    initialNumToRender={3}
                     data={homeResponse.trendingAuthors}
                     renderItem={({item}) => <CardAuthor trendingAuthor={item}/>}/>
                 <HeaderSection title='Hottest Podcasts'/>
-                <FlatList
+                <FlashList
+                    estimatedItemSize={150}
                     horizontal
-                    initialNumToRender={3}
                     data={homeResponse.hottestPodcasts}
                     renderItem={({item}) => <CardHottest hottestPodcast={item} onPress={ () => onPressPodcast(item) }/>}/>
                 {showPlayerFragment ? <View style={{ height: 120 }}/> : <></> }
